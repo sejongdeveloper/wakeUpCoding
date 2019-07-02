@@ -241,6 +241,8 @@ public class ClientChat extends JFrame implements ActionListener {
 			My_Room = Message;
 
 		} else if (protocol.equals("New_room")) {
+			roomvc.add(Message);
+			roomlist.setListData(roomvc);
 		} else if (protocol.equals("CreateRoomfail")) {// 만들지못했을때
 			JOptionPane.showMessageDialog(null, "방만들기 실패", "알림", JOptionPane.ERROR_MESSAGE);
 
