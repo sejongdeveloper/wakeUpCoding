@@ -185,6 +185,12 @@ public class ServerChat extends JFrame implements ActionListener {
 					sendM("OldRoom/"+r.Room_name);
 				}
 				
+				for(int i = 0; i< roomvc.size(); i++) {
+					Roominfo r = (Roominfo) roomvc.elementAt(i);
+					sendM("roomvc_update/" + r.Room_name);
+					
+				}
+				
 				
 				uservc.add(this);
 
