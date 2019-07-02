@@ -1,4 +1,4 @@
-package chat1;
+package chatting;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -139,11 +139,13 @@ public class ClientChat extends JFrame implements ActionListener {
 		ipserver.setBounds(96, 248, 116, 21);
 		logPane1.add(ipserver);
 		ipserver.setColumns(10);
-
+		ipserver.setText("localhost"); // IP 고정추가 (세종)
+		
 		portnum = new JTextField();
 		portnum.setBounds(96, 292, 116, 21);
 		logPane1.add(portnum);
 		portnum.setColumns(10);
+		portnum.setText("5000"); // 포트번호 고정추가 (세종)
 
 		userid = new JTextField();
 		userid.setBounds(111, 344, 116, 21);
@@ -288,6 +290,7 @@ public class ClientChat extends JFrame implements ActionListener {
 			id = userid.getText().trim(); // id받아옴
 			// port 는 int형태라 String인 getText에 받아 올수 없다 그래서 형변환을 해야함.
 			Network();
+			log.setVisible(false);
 
 		} else if (e.getSource() == sendnote) {
 			System.out.println("쪽지보내기 클릭");
@@ -302,7 +305,7 @@ public class ClientChat extends JFrame implements ActionListener {
 
 		} else if (e.getSource() == joinroom) {
 			String JoinRoom = (String) roomlist.getSelectedValue();
-			Sendmsg("JoinRoom/" + JoinRoom);
+			Sendmsg("joinRoom/" + JoinRoom);
 			System.out.println("방참여");
 		} else if (e.getSource() == createroom) {
 			String roomname = JOptionPane.showInputDialog("방 이름");
@@ -315,5 +318,6 @@ public class ClientChat extends JFrame implements ActionListener {
 			// 지금 채팅방 + 메세지 + 방이름
 			System.out.println("보내기");
 		}
+		//aa
 	}
 }

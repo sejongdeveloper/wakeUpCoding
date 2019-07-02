@@ -1,4 +1,4 @@
-package chat1;
+package chatting;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,23 +9,19 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-import chat1.ServerChat.UserInfo;
-import sun.util.locale.StringTokenIterator;
+import chatting.ServerChat.UserInfo;
 
 public class ServerChat extends JFrame implements ActionListener {
 	private JPanel contentPane;
@@ -36,7 +32,7 @@ public class ServerChat extends JFrame implements ActionListener {
 	// net work
 	private ServerSocket ss;
 	private Socket s;
-	private int port;
+	private int port;  
 	private Vector uservc = new Vector();
 	private StringTokenizer st;
 	private Vector roomvc = new Vector();
@@ -115,6 +111,7 @@ public class ServerChat extends JFrame implements ActionListener {
 		porttextfield.setBounds(98, 216, 174, 35);
 		contentPane.add(porttextfield);
 		porttextfield.setColumns(10);
+		porttextfield.setText("5000"); //포트번호 고정추가 (세종)
 
 		startbtn.setBounds(284, 215, 97, 23);
 		contentPane.add(startbtn);
@@ -275,13 +272,13 @@ public class ServerChat extends JFrame implements ActionListener {
 								r.BroadRoom("Chatting/" + Nickname + "/" +msg);
 				}
 					}
-				}else if(protocol.equals("JoinRoom")) {
+				}else if(protocol.equals("joinRoom")) {
 					for(int i =0 ; i < roomvc.size(); i++) {
 						Roominfo r = (Roominfo)roomvc.elementAt(i);
 						if(r.Room_name.equals(message)) {
 							//사용자추가 
 							r.Add_User(this);
-							sendM("JoinRoom/"+message);
+							sendM("joinRoom/"+message);
 						}
 					}
 				}
