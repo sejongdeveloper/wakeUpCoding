@@ -1,0 +1,2 @@
+INDEX VERSION 1.131+C:\Users\1027\Documents\GitHub\wakeUpCoding\.metadata\.plugins\org.eclipse.jdt.core
+2132342881.index
