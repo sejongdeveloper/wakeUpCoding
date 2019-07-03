@@ -1,10 +1,6 @@
 package server;
 
-import java.io.DataInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Hashtable;
@@ -30,11 +26,13 @@ public class Server {
 					try {
 						Socket s = ss.accept();
 					
+						//시작
 						
-						
-						ServerGate sg = new ServerGate(s); //읽는
 						//구현 (userHash put())						
 						userHash = new Hashtable<String, Socket>();
+						Thread th = new ServerGate(s, userHash);
+						th.start();
+						//끝
 						
 					} catch (IOException e) {
 						e.printStackTrace();
