@@ -53,16 +53,25 @@ public class ServerGate extends Thread {
 
 	}// 종료
 	
-	public void sendAllMsg(String Chatting, String nick, String msg) {
+	public void sendAllMsg(String act, String nick, String msg) {
 		Set<String> nicks = userHash.keySet();
 		for(String n : nicks) {
-			userHash.get(n);
+			try {
+				sendMsg(act + "/"+ nick + "/"+ msg, userHash.get(n));
+			} catch (IOException e) {e.printStackTrace();}
+			
 		}
 	}
 	
 
 	// 클라이언트 보내기
 	public void sendMsg(String msg) throws IOException {
+
+		dos = new DataOutputStream(s.getOutputStream());
+		dos.writeUTF(msg);
+	}
+	
+	public void sendMsg(String msg, Socket s) throws IOException {
 
 		dos = new DataOutputStream(s.getOutputStream());
 		dos.writeUTF(msg);

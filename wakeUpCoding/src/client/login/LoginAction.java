@@ -34,7 +34,7 @@ public class LoginAction extends LoginUI implements ActionListener{
 			
 			/////////////////////////
 			c.nick = nick; // 닉 등록
-			c.sendMsg("NewUser/" + nick); // 서버에 닉 보내기
+//			c.sendMsg("NewUser/" + nick); // 서버에 닉 보내기
 			
 		} else if (e.getSource() == btnNew) {
 			JoinUI joinUi = new JoinUI();
