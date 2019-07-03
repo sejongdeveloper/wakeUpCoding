@@ -1,25 +1,18 @@
 package client;
 
-import java.awt.TextArea;
 import java.io.DataInputStream;
 import java.net.Socket;
 import java.util.StringTokenizer;
-import java.util.Vector;
-
-import javax.swing.JList;
 
 public class ClientRead extends Thread{
    private Socket s;
    private DataInputStream dis;
    private StringTokenizer st;
-   private TextArea chatArea;
-   private JList<String> userList;
-   private Vector<String> uList; 
-   
+   ClientAction ca;
    public ClientRead(Socket s,ClientAction ca) {
       this.s = s;
-      this.chatArea = ca.chatArea;
-      this.userList = ca.userList;
+      this.ca = ca;
+      ca.setTitle("세종이에요");
    }
    @Override
    public void run() {
@@ -42,11 +35,13 @@ public class ClientRead extends Thread{
       
       if(act.equals("Chatting")) {
          String message = st.nextToken();
-         chatArea.append(act + " : " + message + "\n");
+         ca.chatArea.append(act + " : " + message + "\n");
          
       } else if(act.equals("NewUser")){
-    	  uList.add(act2);
-    	  userList.setListData(uList);
+
+         ca.uList.add(act2);
+         ca.userList.setListData(ca.uList);
+
       }
    }
 }
