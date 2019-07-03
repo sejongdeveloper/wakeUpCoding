@@ -7,7 +7,7 @@ import java.net.Socket;
 public class Client {
 	private DataOutputStream dos;
 	private Socket s;
-	private String nick;
+	String nick;
 	
 	public void setNick(String nick) {
 		this.nick = nick;
