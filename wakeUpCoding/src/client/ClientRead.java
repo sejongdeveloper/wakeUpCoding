@@ -44,8 +44,8 @@ public class ClientRead extends Thread{
          String message = st.nextToken();
          chatArea.append(act + " : " + message + "\n");
          
-      } else if(act.equals("New_User")){
-         uList.add(msg);
+      } else if(act.equals("NewUser")){
+         uList.add(act2);
          userList.setListData(uList);
          
       }
