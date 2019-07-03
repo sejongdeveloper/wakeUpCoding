@@ -21,6 +21,7 @@ public class Server {
 						ServerGate sg = new ServerGate(s); //읽는
 						//구현 (userHash put())
 						
+						
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
