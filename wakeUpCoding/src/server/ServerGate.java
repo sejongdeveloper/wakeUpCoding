@@ -50,6 +50,22 @@ public class ServerGate extends Thread {
 			String message = st.nextToken();
 			sendAllMsg(act, nick, message);
 			
+		} else if (act.equals("NewUser")) {
+//			String olds = "";
+//			Set<String> nicks = userHash.keySet();
+//			System.out.println("1111");
+//			for(String n : nicks) {
+//				olds = "/" + n;
+//			}
+//			sendAllMsg("OldUser", olds, null);
+			
+			
+			userHash.put(act2, s);
+			sendAllMsg(act, act2, null);
+			
+			
+			
+			
 		}
 
 	}// Á¾·á
@@ -70,11 +86,13 @@ public class ServerGate extends Thread {
 
 		dos = new DataOutputStream(s.getOutputStream());
 		dos.writeUTF(msg);
+		
 	}
 	
 	public void sendMsg(String msg, Socket s) throws IOException {
 
 		dos = new DataOutputStream(s.getOutputStream());
 		dos.writeUTF(msg);
+		System.out.println(msg);
 	}
 }
