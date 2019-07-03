@@ -53,6 +53,7 @@ public class ClientRead extends Thread{
 		} else if(act.equals("New_User")){
 			uList.add(msg);
 			userList.setListData(uList);
+			//asdasd
 			
 		}
 	}
