@@ -44,7 +44,7 @@ public class ServerGate extends Thread {
 		System.out.println("act2   : " + act2);
 		//act = "chatting/nickname/ content"
 		// 구현하세요.
-		if (act.equals("chatting")) {
+		if (act.equals("Chatting")) {
 			String nick = act2; // 나중에 방이름으로 처리해야함
 			String message = st.nextToken();
 			sendAllMsg(act, nick, message);
