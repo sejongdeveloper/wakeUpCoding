@@ -30,6 +30,8 @@ public class ClientRead extends Thread{
 		// 구현하세요.
 		if(act.equals("행동1")) {
 		
+			
+			
 		} else if(act.equals("행동2")){
 			
 		}
