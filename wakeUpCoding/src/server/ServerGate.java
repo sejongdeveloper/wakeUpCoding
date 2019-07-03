@@ -16,6 +16,7 @@ public class ServerGate extends Thread {
 	
 	Hashtable<String, Socket> userHash;
 	public ServerGate(Socket s,Hashtable<String, Socket> userHash) {
+		this.s = s;
 		this.userHash = userHash;
 	}
 
