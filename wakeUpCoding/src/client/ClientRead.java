@@ -32,15 +32,15 @@ public class ClientRead extends Thread{
       st = new StringTokenizer(msg, "/");
       String act = st.nextToken(); // Çàµ¿
       String act2 = st.nextToken();
+      	if(act.equals("NewUser")){
+      		ca.uList.add(act2);
+      		ca.userList.setListData(ca.uList);
+    	  
+    	  
       
-      if(act.equals("Chatting")) {
-         String message = st.nextToken();
-         ca.chatArea.append(act + " : " + message + "\n");
-         
-      } else if(act.equals("NewUser")){
-
-         ca.uList.add(act2);
-         ca.userList.setListData(ca.uList);
+      }else if(act.equals("Chatting")) {
+    	  String message = st.nextToken();
+			ca.chatArea.append(act + " : " + message + "\n");
 
       }
    }

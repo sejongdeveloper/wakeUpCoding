@@ -16,6 +16,7 @@ public class ServerGate extends Thread {
 	
 	Hashtable<String, Socket> userHash;
 	public ServerGate(Socket s,Hashtable<String, Socket> userHash) {
+		this.s = s;
 		this.userHash = userHash;
 	}
 
@@ -50,14 +51,13 @@ public class ServerGate extends Thread {
 			sendAllMsg(act, nick, message);
 			
 		}
-
 	}// Á¾·á
 	
 	public void sendAllMsg(String act, String nick, String msg) {
 		Set<String> nicks = userHash.keySet();
 		for(String n : nicks) {
 			try {
-				sendMsg(act + "/"+ nick + "/"+ msg, userHash.get(n));
+				sendMsg("Chatting/"+ nick + "/"+ msg, userHash.get(n));
 			} catch (IOException e) {e.printStackTrace();}
 			
 		}
