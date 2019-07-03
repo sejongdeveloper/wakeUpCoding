@@ -6,17 +6,10 @@ import java.net.Socket;
 import java.util.Hashtable;
 
 public class Server {
-	
 	private ServerSocket ss;
 	private Hashtable<String, Socket> userHash; // 수정가능한 부분
 	
-	
-	
-	
-	
-	public Server() { //연결
-		
-		
+	public Server() {
 		
 		try {
 			ss = new ServerSocket(7777);
@@ -25,20 +18,14 @@ public class Server {
 				while(true) {
 					try {
 						Socket s = ss.accept();
-					
-						//시작
-						
-						//구현 (userHash put())						
-						userHash = new Hashtable<String, Socket>();
-						Thread th = new ServerGate(s, userHash);
-						th.start();
-						//끝
+						ServerGate sg = new ServerGate(s); //읽는
+						//구현 (userHash put())
 						
 						
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-				}//while
+				}
 			}) ;
 			thread.start();
 			

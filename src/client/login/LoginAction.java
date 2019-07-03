@@ -27,14 +27,8 @@ public class LoginAction extends LoginUI implements ActionListener{
 //			client.showChatUi();
 			
 			JOptionPane.showMessageDialog(null, "로그인 되었습니다.");
-			dispose(); 
-			Client c = new Client();
-			////////////////////////////////
-			String nick = String.valueOf((int)(Math.random()*100)+1);
-			
-			/////////////////////////
-			c.nick = nick; // 닉 등록
-			c.sendMsg("NewUser/" + nick); // 서버에 닉 보내기
+			dispose();
+			new Client();			
 			
 		} else if (e.getSource() == btnNew) {
 			JoinUI joinUi = new JoinUI();
