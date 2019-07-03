@@ -6,9 +6,7 @@ import java.net.Socket;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
-import javax.swing.JFrame;
 import javax.swing.JList;
-import javax.swing.JTextArea;
 
 public class ClientRead extends Thread{
    private Socket s;
