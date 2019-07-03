@@ -45,12 +45,8 @@ public class ClientRead extends Thread{
          chatArea.append(act + " : " + message + "\n");
          
       } else if(act.equals("NewUser")){
-
-
-         uList.add(act2);
-
-         userList.setListData(uList);
-         
+    	  uList.add(act2);
+    	  userList.setListData(uList);
       }
    }
 }
