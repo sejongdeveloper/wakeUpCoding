@@ -8,7 +8,7 @@ public class Client {
 	private DataOutputStream dos;
 	private Socket s;
 	public String nick;
-
+	
 	public Client() {
 		ClientAction ca = new ClientAction(this);	
 		try {
