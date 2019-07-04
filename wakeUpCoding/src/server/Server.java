@@ -36,8 +36,6 @@ public class Server {
 					try {
 						Socket s = ss.accept();
 					
-						
-						
 						//±¸Çö (userHash put())						
 						
 						Thread th = new ServerGate(s, this);
