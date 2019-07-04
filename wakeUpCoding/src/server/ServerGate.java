@@ -14,10 +14,14 @@ public class ServerGate extends Thread {
 	DataOutputStream dos;
 	StringTokenizer st;
 	
-	Hashtable<String, Socket> userHash;
-	public ServerGate(Socket s,Hashtable<String, Socket> userHash) throws IOException {
+	
+//	Hashtable<String, Socket> userHash;
+	Server server;
+//	public ServerGate(Socket s,Hashtable<String, Socket> userHash, Hashtable<String, Hashtable<String, Socket>> roomHash) throws IOException {
+	public ServerGate(Socket s,Server server) throws IOException {
 		this.s = s;
-		this.userHash = userHash;
+		this.server = server;
+//		this.userHash = userHash;
 		
 	}
 
@@ -55,26 +59,33 @@ public class ServerGate extends Thread {
 			
 		} else if (act.equals("NewUser")) {
 			String olds = "";
-			if(!userHash.isEmpty()) {
-				Set<String> nicks = userHash.keySet();
+			if(!server.userHash.isEmpty()) {
+				Set<String> nicks = server.userHash.keySet();
 				for(String n : nicks) {
 					olds += "/" + n;
 				}
 				sendMsg("OldUser" + olds, s);
 			}	
 			
-			userHash.put(act2, s);
+			server.userHash.put(act2, s);
 			System.out.println("닉네임 : " + act2 + "==>" + olds);
 			sendAllMsg(act, act2, null);
+	/////////방뿌리기//////////
+				server.roomHash.put("proto", new Hashtable<String, Socket>());
+				server.roomHash.get("proto").put(act2, s);
+				sendMsg("NewRoom/proto", s);
+				
+				//////////////////////////
+			
 		}
 
 	}// 종료
 	
 	public void sendAllMsg(String act, String nick, String msg) {
-		Set<String> nicks = userHash.keySet();
+		Set<String> nicks = server.userHash.keySet();
 		for(String n : nicks) {
 			try {
-				sendMsg(act + "/"+ nick + "/"+ msg, userHash.get(n));
+				sendMsg(act + "/"+ nick + "/"+ msg, server.userHash.get(n));
 			} catch (IOException e) {e.printStackTrace();}
 			
 		}

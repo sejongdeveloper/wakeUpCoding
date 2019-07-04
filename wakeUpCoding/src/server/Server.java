@@ -9,8 +9,8 @@ import java.util.Set;
 public class Server {
 	
 	private ServerSocket ss;
-	private Hashtable<String, Socket> userHash; // 수정가능한 부분
-	private Hashtable<String, Hashtable<String, Socket>> roomHash; 
+	Hashtable<String, Socket> userHash; // 수정가능한 부분
+	Hashtable<String, Hashtable<String, Socket>> roomHash; 
 	
 	
 	
@@ -40,7 +40,7 @@ public class Server {
 						
 						//구현 (userHash put())						
 						
-						Thread th = new ServerGate(s, userHash);
+						Thread th = new ServerGate(s, this);
 						th.start();
 						//끝
 						
