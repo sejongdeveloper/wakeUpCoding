@@ -21,7 +21,7 @@ public class Server {
 		roomHash = new Hashtable<String, Hashtable<String,Socket>>();
 		
 		// Å×½ºÆ®//////////////////////////
-		roomHash.put("proto",new Hashtable<String, Socket>());
+//		roomHash.put("proto",new Hashtable<String, Socket>());
 		////////////////////////////////////
 		
 
