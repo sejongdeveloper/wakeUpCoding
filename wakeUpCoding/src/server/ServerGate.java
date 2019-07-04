@@ -15,9 +15,10 @@ public class ServerGate extends Thread {
 	StringTokenizer st;
 	
 	Hashtable<String, Socket> userHash;
-	public ServerGate(Socket s,Hashtable<String, Socket> userHash) {
+	public ServerGate(Socket s,Hashtable<String, Socket> userHash) throws IOException {
 		this.s = s;
 		this.userHash = userHash;
+		
 	}
 
 	@Override
@@ -51,21 +52,18 @@ public class ServerGate extends Thread {
 			sendAllMsg(act, nick, message);
 			
 		} else if (act.equals("NewUser")) {
-//			String olds = "";
-//			Set<String> nicks = userHash.keySet();
-//			System.out.println("1111");
-//			for(String n : nicks) {
-//				olds = "/" + n;
-//			}
-//			sendAllMsg("OldUser", olds, null);
-			
+			String olds = "";
+			if(!userHash.isEmpty()) {
+				Set<String> nicks = userHash.keySet();
+				for(String n : nicks) {
+					olds += "/" + n;
+				}
+				sendMsg("OldUser" + olds, s);
+			}	
 			
 			userHash.put(act2, s);
+			System.out.println("닉네임 : " + act2 + "==>" + olds);
 			sendAllMsg(act, act2, null);
-			
-			
-			
-			
 		}
 
 	}// 종료
@@ -93,6 +91,5 @@ public class ServerGate extends Thread {
 
 		dos = new DataOutputStream(s.getOutputStream());
 		dos.writeUTF(msg);
-		System.out.println(msg);
 	}
 }

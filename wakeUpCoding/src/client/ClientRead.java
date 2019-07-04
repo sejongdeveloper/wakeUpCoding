@@ -43,8 +43,13 @@ public class ClientRead extends Thread {
 			ca.uList.add(act2);
 			ca.userList.setListData(ca.uList);
 		} else if (act.equals("OldUser")) {
-//			ca.uList.add(act2);
-//			ca.userList.setListData(ca.uList);
+			System.out.println("act2:" + act2);
+			String[] nicks = act2.split("/");
+			for(String n : nicks) {
+				System.out.println("n : " + n);
+				ca.uList.add(n);
+			}
+			ca.userList.setListData(ca.uList);		
 		}
 	}
 }
