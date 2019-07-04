@@ -12,7 +12,7 @@ public class Server {
 	Hashtable<String, Socket> userHash; // 수정가능한 부분
 	Hashtable<String, Hashtable<String, Socket>> roomHash; 
 	
-	
+	//ff
 	
 	
 	
