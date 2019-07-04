@@ -1,2 +1,6 @@
-/server/
 /client/
+/server/
+<<<<<<< HEAD
+=======
+/test/
+>>>>>>> master

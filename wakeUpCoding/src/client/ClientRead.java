@@ -4,6 +4,8 @@ import java.io.DataInputStream;
 import java.net.Socket;
 import java.util.StringTokenizer;
 
+import javax.swing.JOptionPane;
+
 public class ClientRead extends Thread {
 	private Socket s;
 	private DataInputStream dis;
@@ -37,7 +39,7 @@ public class ClientRead extends Thread {
 
 		if (act.equals("Chatting")) {
 			String message = st.nextToken();
-			ca.chatArea.append(act + " : " + message + "\n");
+			ca.chatArea.append(act2 + " : " + message + "\n");
 			
 		} else if (act.equals("NewUser")) { // 새로 들어온 유저 UI리스트 추가
 			ca.uList.add(act2);
@@ -48,6 +50,23 @@ public class ClientRead extends Thread {
 				ca.uList.add(st.nextToken());
 			}
 			ca.userList.setListData(ca.uList);		
+
+
+		} else if (act.equals("NewRoom")) {
+			ca.rList.add(act2);
+			ca.roomList.setListData(ca.rList);
+		}else if (act.equals("OldRoom")) { // 기존 들어온 유저 UI리스트 추가
+			ca.rList.add(act2);
+			while(st.hasMoreTokens()) {
+				ca.rList.add(st.nextToken());
+			}
+			ca.roomList.setListData(ca.rList);	
+
+		}else if (act.equals("UpdateRoom")) {
+			ca.roomList.setListData(ca.rList);
 		}
-	}
+	
 }
+}
+
+

@@ -8,16 +8,24 @@ import java.util.Hashtable;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import javax.swing.JOptionPane;
+
+
 public class ServerGate extends Thread {
 	Socket s;
 	DataInputStream dis;
 	DataOutputStream dos;
 	StringTokenizer st;
 	
-	Hashtable<String, Socket> userHash;
-	public ServerGate(Socket s,Hashtable<String, Socket> userHash) throws IOException {
+	
+	
+//	Hashtable<String, Socket> userHash;
+	Server server;
+//	public ServerGate(Socket s,Hashtable<String, Socket> userHash, Hashtable<String, Hashtable<String, Socket>> roomHash) throws IOException {
+	public ServerGate(Socket s,Server server) throws IOException {
 		this.s = s;
-		this.userHash = userHash;
+		this.server = server;
+//		this.userHash = userHash;
 		
 	}
 
@@ -49,30 +57,51 @@ public class ServerGate extends Thread {
 		if (act.equals("Chatting")) {
 			String nick = act2; // 나중에 방이름으로 처리해야함
 			String message = st.nextToken();
+			System.out.println("nick:" + act2);
+			System.out.println("message:" + message);
 			sendAllMsg(act, nick, message);
 			
 		} else if (act.equals("NewUser")) {
 			String olds = "";
-			if(!userHash.isEmpty()) {
-				Set<String> nicks = userHash.keySet();
+			if(!server.userHash.isEmpty()) {
+				Set<String> nicks = server.userHash.keySet();
 				for(String n : nicks) {
 					olds += "/" + n;
 				}
 				sendMsg("OldUser" + olds, s);
 			}	
 			
-			userHash.put(act2, s);
+			server.userHash.put(act2, s);
 			System.out.println("닉네임 : " + act2 + "==>" + olds);
 			sendAllMsg(act, act2, null);
+
+		}else if(act.equals("NewRoom")) {
+			String oldrooms = "";
+			if(!server.roomHash.isEmpty()) {
+				Set<String> rooms = server.roomHash.keySet();
+				for(String room : rooms) {
+					oldrooms += "/" + room;
+				}
+				sendMsg("OldRoom" + oldrooms, s);
+			}
+				
+			
+			
+			server.roomHash.put(act2,server.userHash);
+			System.out.println("닉네임 : " + act2 + "==>" + oldrooms);
+			sendAllMsg(act, act2, null);
+			
+			
+
 		}
 
 	}// 종료
 	
 	public void sendAllMsg(String act, String nick, String msg) {
-		Set<String> nicks = userHash.keySet();
+		Set<String> nicks = server.userHash.keySet();
 		for(String n : nicks) {
 			try {
-				sendMsg(act + "/"+ nick + "/"+ msg, userHash.get(n));
+				sendMsg(act + "/"+ nick + "/"+ msg, server.userHash.get(n));
 			} catch (IOException e) {e.printStackTrace();}
 			
 		}
