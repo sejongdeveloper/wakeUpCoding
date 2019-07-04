@@ -70,6 +70,7 @@ public class ServerGate extends Thread {
 			System.out.println("닉네임 : " + act2 + "==>" + olds);
 			sendAllMsg(act, act2);
 			/////////방뿌리기//////////
+			
 			server.roomHash.put("proto", new Hashtable<String, Socket>());
 			server.roomHash.get("proto").put(act2, s);
 			sendMsg("NewRoom/proto", s);
