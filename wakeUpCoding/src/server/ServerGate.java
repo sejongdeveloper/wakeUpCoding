@@ -95,7 +95,7 @@ public class ServerGate extends Thread {
 
 		}
 
-	}// 종료
+	}// 종료1
 	
 	public void sendAllMsg(String act, String nick, String msg) {
 		Set<String> nicks = server.userHash.keySet();
