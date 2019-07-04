@@ -53,7 +53,13 @@ public class ClientRead extends Thread {
 		} else if (act.equals("NewRoom")) {
 			ca.rList.add(act2);
 			ca.roomList.setListData(ca.rList);
-		}
+		}else if (act.equals("OldRoom")) { // 기존 들어온 유저 UI리스트 추가
+			ca.rList.add(act2);
+			while(st.hasMoreTokens()) {
+				ca.rList.add(st.nextToken());
+			}
+			ca.roomList.setListData(ca.rList);	
 
 		}
 	}
+}

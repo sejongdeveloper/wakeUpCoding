@@ -75,7 +75,6 @@ public class ServerGate extends Thread {
 			sendAllMsg(act, act2, null);
 
 		}else if(act.equals("NewRoom")) {
-//			sendMsg("NewRoom/" + act2);
 			String oldrooms = "";
 			if(!server.roomHash.isEmpty()) {
 				Set<String> rooms = server.roomHash.keySet();
