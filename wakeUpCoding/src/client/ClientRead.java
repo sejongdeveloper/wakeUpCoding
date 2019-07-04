@@ -48,6 +48,10 @@ public class ClientRead extends Thread {
 				ca.uList.add(st.nextToken());
 			}
 			ca.userList.setListData(ca.uList);		
+		}else if(act.equals("NewRoom")) {
+			ca.rList.add(act);
+			ca.roomList.setListData(ca.rList);
+			
 		}
 	}
 }

@@ -66,6 +66,8 @@ public class ServerGate extends Thread {
 			userHash.put(act2, s);
 			System.out.println("닉네임 : " + act2 + "==>" + olds);
 			sendAllMsg(act, act2, null);
+		}else if(act.equals("NewRoom")) {
+				Set<String> rooms = 
 		}
 
 	}// 종료
