@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Hashtable;
+import java.util.Set;
 
 public class Server {
 	
 	private ServerSocket ss;
 	private Hashtable<String, Socket> userHash; // 수정가능한 부분
+	private Hashtable<String, Hashtable<String, Socket>> roomHash; 
 	
 	
 	
@@ -16,6 +18,15 @@ public class Server {
 	
 	public Server() { //연결
 		userHash = new Hashtable<String, Socket>();
+		roomHash = new Hashtable<String, Hashtable<String,Socket>>();
+		
+		// 테스트//////////////////////////
+		roomHash.put("proto",new Hashtable<String, Socket>());
+		////////////////////////////////////
+		
+
+		
+		
 		
 		try {
 			ss = new ServerSocket(7777);
