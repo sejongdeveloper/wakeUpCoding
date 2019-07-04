@@ -39,23 +39,22 @@ public class ServerGate extends Thread {
 		}
 	}
 
-	// ½ÃÀÛ
+	// ï¿½ï¿½ï¿½ï¿½
 	public void applyMsg(String msg) throws IOException {
-		//ÅäÅ«À¸·Î ¾Ë¾Æ¼­ ³ª´©¼¼¿ä. Ã¹±ÛÀº´ë¹®ÀÚ
+		//ï¿½ï¿½Å«ï¿½ï¿½ï¿½ï¿½ ï¿½Ë¾Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½. Ã¹ï¿½ï¿½ï¿½ï¿½ï¿½ë¹®ï¿½ï¿½
 		st = new StringTokenizer(msg, "/");
 		
-		String act = st.nextToken(); // Çàµ¿
+		String act = st.nextToken(); // ï¿½àµ¿
 		String act2 = st.nextToken();
 		System.out.println("act: " + act );
 		System.out.println("act2   : " + act2);
 		//act = "chatting/nickname/ content"
-		// ±¸ÇöÇÏ¼¼¿ä.
+		// ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½.
 		if (act.equals("Chatting")) {
-			String nick = act2; // ³ªÁß¿¡ ¹æÀÌ¸§À¸·Î Ã³¸®ÇØ¾ßÇÔ
-			String message = st.nextToken();
-			System.out.println("nick:" + act2);
-			System.out.println("message:" + message);
-			sendAllMsg(act, nick, message);
+			String roomName = act2; // ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½ï¿½
+			String nick = st.nextToken();
+			String chat = st.nextToken();
+			sendAllMsg(act, roomName, nick, chat);
 			
 		} else if (act.equals("NewUser")) {
 			String olds = "";
@@ -68,9 +67,9 @@ public class ServerGate extends Thread {
 			}	
 			
 			server.userHash.put(act2, s);
-			System.out.println("´Ð³×ÀÓ : " + act2 + "==>" + olds);
-			sendAllMsg(act, act2, null);
-			/////////¹æ»Ñ¸®±â//////////
+			System.out.println("ï¿½Ð³ï¿½ï¿½ï¿½ : " + act2 + "==>" + olds);
+			sendAllMsg(act, act2);
+			/////////ï¿½ï¿½Ñ¸ï¿½ï¿½ï¿½//////////
 			server.roomHash.put("proto", new Hashtable<String, Socket>());
 			server.roomHash.get("proto").put(act2, s);
 			sendMsg("NewRoom/proto", s);
@@ -79,20 +78,36 @@ public class ServerGate extends Thread {
 			
 		}
 
-	}// Á¾·á
+	}// ï¿½ï¿½ï¿½ï¿½
 	
-	public void sendAllMsg(String act, String nick, String msg) {
-		Set<String> nicks = server.userHash.keySet();
+	public void sendAllMsg(String ... str) {
+		Set<String> nicks = userHash.keySet();
 		for(String n : nicks) {
 			try {
-				sendMsg(act + "/"+ nick + "/"+ msg, server.userHash.get(n));
+				String send = "";
+				for (int i = 0; i < str.length; i++) {
+					send += str[i] + "/";
+				}
+				sendMsg(send, userHash.get(n));
 			} catch (IOException e) {e.printStackTrace();}
-			
+		}
+	}
+	
+	public void sendRoomMsg(Hashtable<String, Hashtable<String, Socket>> roomHash, String roomName, String ... str) {
+		Set<String> nicks = roomHash.get(roomName).keySet();
+		for(String n : nicks) {
+			try {
+				String send = "";
+				for (int i = 0; i < str.length; i++) {
+					send += str[i] + "/";
+				}
+				sendMsg(send, roomHash.get(roomName).get(n));
+			} catch (IOException e) {e.printStackTrace();}
 		}
 	}
 	
 
-	// Å¬¶óÀÌ¾ðÆ® º¸³»±â
+	// Å¬ï¿½ï¿½ï¿½Ì¾ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	public void sendMsg(String msg) throws IOException {
 
 		dos = new DataOutputStream(s.getOutputStream());

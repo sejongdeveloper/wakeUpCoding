@@ -24,7 +24,7 @@ public class ClientAction extends ClientUI implements ActionListener{
 			JOptionPane.showMessageDialog(null, "盲泼规 积己");
 			c.createRoom();
 		} else if (e.getSource() == btnEnter) {
-			c.sendMsg("Chatting/"+c.nick +"/"+ chatField.getText().trim());
+			c.sendMsg("Chatting/proto/"+c.nick +"/"+ chatField.getText().trim());
 			JOptionPane.showMessageDialog(null, "傈价");
 			
 			
