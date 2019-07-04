@@ -93,4 +93,5 @@ public class ServerGate extends Thread {
 		dos = new DataOutputStream(s.getOutputStream());
 		dos.writeUTF(msg);
 	}
+//	aa
 }
