@@ -12,6 +12,7 @@ public class LoginAction extends LoginUI implements ActionListener{
 
 	private String id;
 	private Login l;
+	public static String nick = String.valueOf((int)(Math.random()*100)+1);
 	
 	public LoginAction(Login l) {
 		this.l = l;
@@ -28,7 +29,6 @@ public class LoginAction extends LoginUI implements ActionListener{
 			dispose(); 
 			Client c = new Client();
 			////////////////////////////////
-			String nick = String.valueOf((int)(Math.random()*100)+1);
 			
 			/////////////////////////
 			c.nick = nick; // ´Ð µî·Ï

@@ -73,11 +73,12 @@ public class ServerGate extends Thread {
 			String nick = st.nextToken();
 			System.out.println(nick);
 			
-			
+		
 			sendMsg(s, "DelUser", nick);
 			System.out.println("실험1:" + server.roomHash.get(act2));
 			server.roomHash.get(act2).remove(nick);
 			System.out.println("실험2:" + server.roomHash.get(act2));
+
 			
 			/////////user 뿌리기///////////
 //			sendMsg(s, "DelUserList", "hi");
