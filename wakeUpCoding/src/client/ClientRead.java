@@ -37,7 +37,7 @@ public class ClientRead extends Thread {
 
 		if (act.equals("Chatting")) {
 			String message = st.nextToken();
-			ca.chatArea.append(act + " : " + message + "\n");
+			ca.chatArea.append(act2 + " : " + message + "\n");
 			
 		} else if (act.equals("NewUser")) { // 새로 들어온 유저 UI리스트 추가
 			ca.uList.add(act2);
