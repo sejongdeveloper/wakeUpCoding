@@ -45,7 +45,6 @@ public class ServerGate extends Thread {
 
 	// 시작
 	public void applyMsg(String msg) throws IOException {
-		//토큰으로 알아서 나누세요. 첫글은대문자
 		st = new StringTokenizer(msg, "/");
 		
 		String act = st.nextToken(); // 행동
