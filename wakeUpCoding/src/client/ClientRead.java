@@ -4,7 +4,6 @@ import java.io.DataInputStream;
 import java.net.Socket;
 import java.util.StringTokenizer;
 
-
 public class ClientRead extends Thread {
 	private Socket s;
 	private DataInputStream dis;
@@ -51,5 +50,4 @@ public class ClientRead extends Thread {
 			ca.userList.setListData(ca.uList);		
 		}
 	}
-
 }
