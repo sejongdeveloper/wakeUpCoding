@@ -4,12 +4,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Set;
 import java.util.StringTokenizer;
-
-import javax.swing.JOptionPane;
 
 
 public class ServerGate extends Thread {
@@ -72,17 +69,29 @@ public class ServerGate extends Thread {
 		} else if(act.equals("JoinRoom")) {
 			String nick = st.nextToken();
 			System.out.println(nick);
+			String oldRoom = st.nextToken();
+			System.out.println("oldRoom:" + oldRoom);
+			if(!oldRoom.equals("none")) {
+				server.roomHash.get(oldRoom).remove(nick);
+				System.out.println("여기로 온다고?");
+				sendRoomMsg("DelUser", oldRoom, nick);
+//				server.roomHash.get(act2).remove(nick);
+				sendRoomMsg( "DelUserList", oldRoom);
+				Set<String> nicks = server.roomHash.get(oldRoom).keySet();
+				for (String n : nicks) {
+					sendMsg(s, "NewUser", n);
+				}
+			} 
+				System.out.println("처음 방참여");
+				sendMsg(s, "DelUser", nick);
+//				server.roomHash.get(act2).remove(nick);
+				sendMsg(s, "DelUserList", "hi");				
 			
-		
-			sendMsg(s, "DelUser", nick);
-			System.out.println("실험1:" + server.roomHash.get(act2));
-			server.roomHash.get(act2).remove(nick);
-			System.out.println("실험2:" + server.roomHash.get(act2));
+			// 0:act 1:roomName 2:nickname 3~:msg
 
 			
 			/////////user 뿌리기///////////
 //			sendMsg(s, "DelUserList", "hi");
-			sendMsg(s, "DelUserList", "hi");
 			
 			Set<String> nicks = server.roomHash.get(act2).keySet();
 			for (String n : nicks) {

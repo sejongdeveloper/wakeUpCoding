@@ -10,6 +10,7 @@ import client.login.LoginAction;
 public class ClientAction extends ClientUI implements ActionListener{
 	Client c;
 	String roomName = "";
+	String oldName = "none";
 	public ClientAction(Client c) {
 		this.c = c;
 		
@@ -17,7 +18,8 @@ public class ClientAction extends ClientUI implements ActionListener{
 		btnJoin.addActionListener(this);
 		btnNewRoom.addActionListener(this);
 		
-		setTitle(LoginAction.nick);
+		setTitle(c.nick);
+		
 	}
 
 	@Override
@@ -34,7 +36,8 @@ public class ClientAction extends ClientUI implements ActionListener{
 			}
 			roomName = roomList.getSelectedValue();
 			chatArea.setText("");
-			c.sendMsg("JoinRoom",roomName,c.nick);
+			c.sendMsg("JoinRoom",roomName,c.nick,oldName);
+			oldName = roomName;
 			JOptionPane.showMessageDialog(null, "채팅방 입장");
 		} else if (e.getSource() == btnNewRoom) {
 			String roomname = JOptionPane.showInputDialog("방 이름");
