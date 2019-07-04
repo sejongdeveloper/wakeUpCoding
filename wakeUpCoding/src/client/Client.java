@@ -3,12 +3,17 @@ package client;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.Hashtable;
+
+import javax.swing.JOptionPane;
 
 public class Client {
 	private DataOutputStream dos;
 	private Socket s;
 	public String nick;
 	
+	public String room;
+
 	public Client() {
 		ClientAction ca = new ClientAction(this);	
 		try {
@@ -32,9 +37,12 @@ public class Client {
 	}
 	
 	// 방생성
-	public void createRoom() {
-		
-	}
+//	public Hashtable<String, Hashtable<String,Socket>> newRoom() {
+//		String roomname = JOptionPane.showInputDialog("방 이름");
+//		sendMsg("NewRoom/ " + roomname);// 메세지를 통하여 방이름을 보내준다.
+//		roomHash.put(roomname, new Hashtable<String, Socket>());
+//		return roomHash;
+//	}
 	
 	// 방참여
 	public void joinRoom() {

@@ -18,7 +18,7 @@ public class Test {
 		roomHash.get("new1").put("¼¼Á¾", s);
 		roomHash.get("new1").put("aa", s);
 		roomHash.get("new1").put("bb", s);
-		
+			
 		Set<String> str = roomHash.keySet();
 		for(String strstr : str) {
 			System.out.println(strstr);
@@ -31,5 +31,7 @@ public class Test {
 			System.out.println(nick);
 			System.out.println(roomHash.get("new1").get(nick));
 		}
+		
+		
 	}
 }
