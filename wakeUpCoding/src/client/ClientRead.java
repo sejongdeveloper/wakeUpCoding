@@ -16,7 +16,6 @@ public class ClientRead extends Thread {
 		this.s = s;
 		this.ca = ca;
 
-		ca.setTitle(ca.c.nick);
 	}
 
 	@Override
@@ -45,9 +44,9 @@ public class ClientRead extends Thread {
 			ca.uList.add(act2);
 			ca.userList.setListData(ca.uList);
 		} else if (act.equals("DelUser")) { // 새로 들어온 유저 UI리스트 추가
-			System.out.println("선벡 "+ ca.uList);
+//			System.out.println("선벡 "+ ca.uList);
 			ca.uList.remove(act2);
-			System.out.println("후벡" + ca.uList);
+//			System.out.println("후벡" + ca.uList);
 			ca.userList.setListData(ca.uList);
 		} else if (act.equals("NewRoom")) {
 			ca.rList.add(act2);

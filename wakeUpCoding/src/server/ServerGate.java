@@ -77,8 +77,8 @@ public class ServerGate extends Thread {
 			System.out.println(nick);
 			
 			
-			sendMsg(s, "DelUser", nick);
-			server.roomHash.get(act2).remove(nick);
+			sendRoomMsg("DelUser", act2, nick);
+			server.roomHash.get(act2);
 			
 			/////////user »Ñ¸®±â///////////
 			sendMsg(s, "DelUserList", "hi");
