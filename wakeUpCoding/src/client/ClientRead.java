@@ -38,16 +38,14 @@ public class ClientRead extends Thread {
 		if (act.equals("Chatting")) {
 			String message = st.nextToken();
 			ca.chatArea.append(act + " : " + message + "\n");
-
-		} else if (act.equals("NewUser")) {
+			
+		} else if (act.equals("NewUser")) { // 새로 들어온 유저 UI리스트 추가
 			ca.uList.add(act2);
 			ca.userList.setListData(ca.uList);
-		} else if (act.equals("OldUser")) {
-			System.out.println("act2:" + act2);
-			String[] nicks = act2.split("/");
-			for(String n : nicks) {
-				System.out.println("n : " + n);
-				ca.uList.add(n);
+		} else if (act.equals("OldUser")) { // 기존 들어온 유저 UI리스트 추가
+			ca.uList.add(act2);
+			while(st.hasMoreTokens()) {
+				ca.uList.add(st.nextToken());
 			}
 			ca.userList.setListData(ca.uList);		
 		}
