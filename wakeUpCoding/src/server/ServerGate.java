@@ -8,6 +8,8 @@ import java.util.Hashtable;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import javax.swing.JOptionPane;
+
 public class ServerGate extends Thread {
 	Socket s;
 	DataInputStream dis;
@@ -72,15 +74,8 @@ public class ServerGate extends Thread {
 			sendAllMsg(act, act2, null);
 
 		}else if(act.equals("NewRoom")) {
-				Set<String> rooms = 
-
-	/////////¹æ»Ñ¸®±â//////////
-				server.roomHash.put("proto", new Hashtable<String, Socket>());
-				server.roomHash.get("proto").put(act2, s);
-				sendMsg("NewRoom/proto", s);
-				
-				//////////////////////////
 			
+			sendMsg("NewRoom/" + act2);
 
 		}
 
