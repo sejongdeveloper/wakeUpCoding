@@ -16,8 +16,7 @@ public class Server {
 	
 	
 	public Server() { //연결
-		
-		
+		userHash = new Hashtable<String, Socket>();
 		
 		try {
 			ss = new ServerSocket(7777);
@@ -28,9 +27,11 @@ public class Server {
 					try {
 						Socket s = ss.accept();
 					
-						//시작
 						
-						//구현 (userHash put())						
+						
+
+						
+
 						Thread th = new ServerGate(s, userHash);
 						
 						th.start();
@@ -49,7 +50,7 @@ public class Server {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
+	}// Server() end
 	
 	public static void main(String[] args) {
 		new Server();

@@ -14,6 +14,7 @@ public class Client {
 		try {
 			s = new Socket("localhost", 7777);
 			Thread read = new ClientRead(s, ca);
+			read.start();
 			dos = new DataOutputStream(s.getOutputStream());
 			
 		} catch (Exception e) {
