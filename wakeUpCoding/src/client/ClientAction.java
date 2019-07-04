@@ -27,6 +27,9 @@ public class ClientAction extends ClientUI implements ActionListener{
 			c.sendMsg("Chatting/"+c.nick +"/"+ chatField.getText().trim());
 			JOptionPane.showMessageDialog(null, "전송");
 			
+			
+			chatField.setText(""); // 입력필드 초기화
+			
 		}
 	}
 }
