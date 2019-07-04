@@ -4,6 +4,8 @@ import java.io.DataInputStream;
 import java.net.Socket;
 import java.util.StringTokenizer;
 
+import javax.swing.JOptionPane;
+
 public class ClientRead extends Thread {
 	private Socket s;
 	private DataInputStream dis;
@@ -60,6 +62,11 @@ public class ClientRead extends Thread {
 			}
 			ca.roomList.setListData(ca.rList);	
 
+		}else if (act.equals("UpdateRoom")) {
+			ca.roomList.setListData(ca.rList);
 		}
-	}
+	
 }
+}
+
+

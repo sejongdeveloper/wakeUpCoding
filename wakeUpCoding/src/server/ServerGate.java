@@ -10,6 +10,7 @@ import java.util.StringTokenizer;
 
 import javax.swing.JOptionPane;
 
+
 public class ServerGate extends Thread {
 	Socket s;
 	DataInputStream dis;
@@ -82,7 +83,9 @@ public class ServerGate extends Thread {
 					oldrooms += "/" + room;
 				}
 				sendMsg("OldRoom" + oldrooms, s);
-			}	
+			}
+				
+			
 			
 			server.roomHash.put(act2,server.userHash);
 			System.out.println("´Ğ³×ÀÓ : " + act2 + "==>" + oldrooms);
