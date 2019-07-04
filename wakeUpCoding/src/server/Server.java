@@ -20,9 +20,6 @@ public class Server {
 		userHash = new Hashtable<String, Socket>();
 		roomHash = new Hashtable<String, Hashtable<String,Socket>>();
 		
-
-		
-		
 		
 		try {
 			ss = new ServerSocket(7777);
@@ -32,8 +29,6 @@ public class Server {
 					try {
 						Socket s = ss.accept();
 					
-						
-						
 						//±¸Çö (userHash put())						
 						
 						Thread th = new ServerGate(s, this);

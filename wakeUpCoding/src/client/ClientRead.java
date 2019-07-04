@@ -16,7 +16,7 @@ public class ClientRead extends Thread {
 		this.s = s;
 		this.ca = ca;
 
-		ca.setTitle("세종이에요");
+		ca.setTitle(ca.c.nick);
 	}
 
 	@Override
@@ -55,6 +55,7 @@ public class ClientRead extends Thread {
 		} else if (act.equals("NewRoom")) {
 			ca.rList.add(act2);
 			ca.roomList.setListData(ca.rList);
+<<<<<<< HEAD
 		}else if (act.equals("OldRoom")) { // 기존 들어온 유저 UI리스트 추가
 			ca.rList.add(act2);
 			while(st.hasMoreTokens()) {
@@ -63,6 +64,13 @@ public class ClientRead extends Thread {
 
 		}else if (act.equals("CreateRoomfail")) {// 만들지못했을때
 			JOptionPane.showMessageDialog(null, "방만들기 실패", "알림", JOptionPane.ERROR_MESSAGE);
+=======
+		} else if (act.equals("DelUserList")) { // 새로 들어온 유저 UI리스트 추가
+			System.out.println("실행시작");
+			ca.uList.clear();
+			ca.userList.setListData(ca.uList);
+		}
+>>>>>>> master
 	
 }
 }

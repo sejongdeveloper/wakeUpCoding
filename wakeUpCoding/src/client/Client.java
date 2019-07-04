@@ -11,6 +11,11 @@ public class Client {
 	private DataOutputStream dos;
 	private Socket s;
 	public String nick;
+<<<<<<< HEAD
+=======
+	
+	public String room;
+>>>>>>> master
 
 	public Client() {
 		ClientAction ca = new ClientAction(this);	
@@ -26,12 +31,12 @@ public class Client {
 	} // Client() end
 	
 	// 서버에 msg 보내기
-	public void sendMsg(String msg) {
+	public void sendMsg(String ...msg) {
 		try {
-			dos.writeUTF(msg);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+			String send = "";
+			for (int i = 0; i < msg.length; i++) send += msg[i] + "/";
+			dos.writeUTF(send);
+		} catch (IOException e) {e.printStackTrace();}
 	}
 	
 	// 방생성
