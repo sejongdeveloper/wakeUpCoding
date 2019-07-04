@@ -47,11 +47,10 @@ public class ServerGate extends Thread {
 		//act = "chatting/nickname/ content"
 		// 구현하세요.
 		if (act.equals("Chatting")) {
-			String nick = act2; // 나중에 방이름으로 처리해야함
-			String message = st.nextToken();
-			System.out.println("nick:" + act2);
-			System.out.println("message:" + message);
-			sendAllMsg(act, nick, message);
+			String roomName = act2; // 나중에 방이름으로 처리해야함
+			String nick = st.nextToken();
+			String chat = st.nextToken();
+			sendAllMsg(act, roomName, nick, chat);
 			
 		} else if (act.equals("NewUser")) {
 			String olds = "";
@@ -65,18 +64,34 @@ public class ServerGate extends Thread {
 			
 			userHash.put(act2, s);
 			System.out.println("닉네임 : " + act2 + "==>" + olds);
-			sendAllMsg(act, act2, null);
+			sendAllMsg(act, act2);
 		}
 
 	}// 종료
 	
-	public void sendAllMsg(String act, String nick, String msg) {
+	public void sendAllMsg(String ... str) {
 		Set<String> nicks = userHash.keySet();
 		for(String n : nicks) {
 			try {
-				sendMsg(act + "/"+ nick + "/"+ msg, userHash.get(n));
+				String send = "";
+				for (int i = 0; i < str.length; i++) {
+					send += str[i] + "/";
+				}
+				sendMsg(send, userHash.get(n));
 			} catch (IOException e) {e.printStackTrace();}
-			
+		}
+	}
+	
+	public void sendRoomMsg(Hashtable<String, Hashtable<String, Socket>> roomHash, String roomName, String ... str) {
+		Set<String> nicks = roomHash.get(roomName).keySet();
+		for(String n : nicks) {
+			try {
+				String send = "";
+				for (int i = 0; i < str.length; i++) {
+					send += str[i] + "/";
+				}
+				sendMsg(send, roomHash.get(roomName).get(n));
+			} catch (IOException e) {e.printStackTrace();}
 		}
 	}
 	
