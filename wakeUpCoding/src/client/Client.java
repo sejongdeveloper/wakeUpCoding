@@ -3,9 +3,6 @@ package client;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Hashtable;
-
-import javax.swing.JOptionPane;
 
 public class Client {
 	private DataOutputStream dos;
@@ -54,8 +51,4 @@ public class Client {
 		
 	}
 	
-	
-	public static void main(String[] args) {
-		new Client();
-	}
 }

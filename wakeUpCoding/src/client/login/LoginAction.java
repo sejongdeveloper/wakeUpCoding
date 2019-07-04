@@ -25,8 +25,6 @@ public class LoginAction extends LoginUI implements ActionListener{
 			System.out.println("로그인버튼 클릭");
 			id = idField.getText().trim();
 //			client.showChatUi();
-			
-			JOptionPane.showMessageDialog(null, "로그인 되었습니다.");
 			dispose(); 
 			Client c = new Client();
 			////////////////////////////////

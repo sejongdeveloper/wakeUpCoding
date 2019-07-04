@@ -12,9 +12,6 @@ public class Server {
 	Hashtable<String, Socket> userHash; // 수정가능한 부분
 	Hashtable<String, Hashtable<String, Socket>> roomHash; 
 	
-	//ff
-	
-	
 	
 	public Server() { //연결
 		userHash = new Hashtable<String, Socket>();

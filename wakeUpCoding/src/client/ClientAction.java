@@ -19,6 +19,12 @@ public class ClientAction extends ClientUI implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnJoin) {
+			//채팅방 없을경우
+			if(roomList == null || rList.isEmpty()) {
+				JOptionPane.showMessageDialog(null, "채팅방이 없습니다.");
+				return;
+			}
+			
 			if (!roomName.isEmpty()) {
 				c.sendMsg("Chatting", roomName, "관리자", c.nick+"님이 퇴장하였습니다.");
 			}

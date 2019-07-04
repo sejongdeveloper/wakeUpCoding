@@ -20,13 +20,10 @@ public class ServerGate extends Thread {
 	
 	
 	
-//	Hashtable<String, Socket> userHash;
 	Server server;
-//	public ServerGate(Socket s,Hashtable<String, Socket> userHash, Hashtable<String, Hashtable<String, Socket>> roomHash) throws IOException {
 	public ServerGate(Socket s,Server server) throws IOException {
 		this.s = s;
 		this.server = server;
-//		this.userHash = userHash;
 		
 	}
 
@@ -78,9 +75,12 @@ public class ServerGate extends Thread {
 			
 			
 			sendMsg(s, "DelUser", nick);
+			System.out.println("실험1:" + server.roomHash.get(act2));
 			server.roomHash.get(act2).remove(nick);
+			System.out.println("실험2:" + server.roomHash.get(act2));
 			
 			/////////user 뿌리기///////////
+//			sendMsg(s, "DelUserList", "hi");
 			sendMsg(s, "DelUserList", "hi");
 			
 			Set<String> nicks = server.roomHash.get(act2).keySet();

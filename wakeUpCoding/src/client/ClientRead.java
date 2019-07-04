@@ -50,6 +50,7 @@ public class ClientRead extends Thread {
 			System.out.println("후벡" + ca.uList);
 			ca.userList.setListData(ca.uList);
 		} else if (act.equals("NewRoom")) {
+			System.out.println("ACT2:" + act2);
 			ca.rList.add(act2);
 			ca.roomList.setListData(ca.rList);
 		} else if (act.equals("DelUserList")) { // 새로 들어온 유저 UI리스트 추가
