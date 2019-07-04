@@ -94,15 +94,15 @@ public class ServerGate extends Thread {
 		}
 	}
 	
-	public void sendRoomMsg(Hashtable<String, Hashtable<String, Socket>> roomHash, String roomName, String ... str) {
-		Set<String> nicks = roomHash.get(roomName).keySet();
+	public void sendRoomMsg(String roomName, String ... str) {
+		Set<String> nicks = server.roomHash.get(roomName).keySet();
 		for(String n : nicks) {
 			try {
 				String send = "";
 				for (int i = 0; i < str.length; i++) {
 					send += str[i] + "/";
 				}
-				sendMsg(send, roomHash.get(roomName).get(n));
+				sendMsg(send, server.roomHash.get(roomName).get(n));
 			} catch (IOException e) {e.printStackTrace();}
 		}
 	}

@@ -19,10 +19,8 @@ public class ClientAction extends ClientUI implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnJoin) {
 			JOptionPane.showMessageDialog(null, "채팅방 입장");	
-			c.joinRoom();
 		} else if (e.getSource() == btnNewRoom) {
 			JOptionPane.showMessageDialog(null, "채팅방 생성");
-			c.createRoom();
 		} else if (e.getSource() == btnEnter) {
 			c.sendMsg("Chatting/proto/"+c.nick +"/"+ chatField.getText().trim());
 			JOptionPane.showMessageDialog(null, "전송");
