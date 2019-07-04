@@ -24,8 +24,11 @@ public class ClientAction extends ClientUI implements ActionListener{
 			JOptionPane.showMessageDialog(null, "채팅방 생성");
 			c.createRoom();
 		} else if (e.getSource() == btnEnter) {
-			c.sendMsg("Chatting/"+c.nick + chatField.getText().trim());
-			JOptionPane.showMessageDialog(null, "엔터");
+			c.sendMsg("Chatting/"+c.nick +"/"+ chatField.getText().trim());
+			JOptionPane.showMessageDialog(null, "전송");
+			
+			
+			chatField.setText(""); // 입력필드 초기화
 			
 		}
 	}
