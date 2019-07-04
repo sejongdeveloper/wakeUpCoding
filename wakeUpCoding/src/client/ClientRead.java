@@ -6,6 +6,8 @@ import java.util.StringTokenizer;
 
 import javax.swing.JOptionPane;
 
+import client.login.LoginAction;
+
 public class ClientRead extends Thread {
 	private Socket s;
 	private DataInputStream dis;
@@ -15,8 +17,7 @@ public class ClientRead extends Thread {
 	public ClientRead(Socket s, ClientAction ca) {
 		this.s = s;
 		this.ca = ca;
-
-		ca.setTitle(ca.c.nick);
+		
 	}
 
 	@Override
