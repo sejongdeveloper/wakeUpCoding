@@ -26,10 +26,10 @@ public class Test {
 		
 		System.out.println("\n=========================\n");
 		
-		Set<String> str2 = roomHash.get("new1").keySet();
-		for(String strstr : str2) {
-			System.out.println(strstr);
-			System.out.println(roomHash.get("new1").get(strstr));
+		Set<String> nicks = roomHash.get("new1").keySet();
+		for(String nick : nicks) {
+			System.out.println(nick);
+			System.out.println(roomHash.get("new1").get(nick));
 		}
 	}
 }
