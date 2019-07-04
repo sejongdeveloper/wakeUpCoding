@@ -11,8 +11,6 @@ public class Client {
 	private DataOutputStream dos;
 	private Socket s;
 	public String nick;
-	Hashtable<String, Hashtable<String,Socket>> roomHash = new Hashtable<String, Hashtable<String,Socket>>();
-	public String room;
 
 	public Client() {
 		ClientAction ca = new ClientAction(this);	

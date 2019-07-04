@@ -59,14 +59,14 @@ public class ClientRead extends Thread {
 			ca.rList.add(act2);
 			while(st.hasMoreTokens()) {
 				ca.rList.add(st.nextToken());
-			}
-			ca.roomList.setListData(ca.rList);	
+			}ca.roomList.setListData(ca.rList);	
 
-		}else if (act.equals("UpdateRoom")) {
-			ca.roomList.setListData(ca.rList);
-		}
+		}else if (act.equals("CreateRoomfail")) {// 만들지못했을때
+			JOptionPane.showMessageDialog(null, "방만들기 실패", "알림", JOptionPane.ERROR_MESSAGE);
 	
 }
 }
+}
+
 
 
