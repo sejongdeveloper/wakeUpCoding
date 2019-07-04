@@ -77,6 +77,7 @@ public class ServerGate extends Thread {
 			
 		} else if(act.equals("JoinRoom")) {
 			String nick = st.nextToken();
+			System.out.println(nick);
 			server.roomHash.get(act2).put(nick, s);
 			System.out.println(nick);
 			
