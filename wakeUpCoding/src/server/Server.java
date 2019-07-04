@@ -20,7 +20,6 @@ public class Server {
 		userHash = new Hashtable<String, Socket>();
 		roomHash = new Hashtable<String, Hashtable<String,Socket>>();
 		
-		
 		try {
 			ss = new ServerSocket(7777);
 			System.out.println("서버시작");
@@ -29,8 +28,7 @@ public class Server {
 					try {
 						Socket s = ss.accept();
 					
-						//구현 (userHash put())						
-						
+						//구현 (userHash put())
 						Thread th = new ServerGate(s, this);
 						th.start();
 						//끝
@@ -40,7 +38,7 @@ public class Server {
 						e.printStackTrace();
 					}
 				}//while
-			}) ;
+			});
 			thread.start();
 			
 			

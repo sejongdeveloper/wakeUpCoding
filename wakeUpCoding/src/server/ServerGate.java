@@ -4,6 +4,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Set;
 import java.util.StringTokenizer;
@@ -54,42 +55,40 @@ public class ServerGate extends Thread {
 		//act = "chatting/nickname/ content"
 		// 구현하세요.
 		if (act.equals("NewUser")) {
-			String olds = "";
-			if(!server.userHash.isEmpty()) {
-				Set<String> nicks = server.userHash.keySet();
-				for(String n : nicks) {
-					olds += "/" + n;
-				}
-				sendMsg(s, "OldUser" + olds);
-			}	
 			
+			// 신규유저에게 기존유저뿌리기
+			Set<String> nicks = server.userHash.keySet();
+			for (String nick : nicks) {
+				sendMsg(s, act, nick);
+			}
+			
+			// 모든유저에게 신규유저 추가
 			server.userHash.put(act2, s);
 			sendAllMsg(act, act2);
 			
 			/////////방뿌리기//////////
-			
 			Set<String> roomN = server.roomHash.keySet();
 			for(String name : roomN) {
 				sendMsg(s, "NewRoom", name);
 			}
 			
-			//////////////////////////
-			
 		} else if(act.equals("JoinRoom")) {
 			String nick = st.nextToken();
 			System.out.println(nick);
-			server.roomHash.get(act2).put(nick, s);
-			System.out.println(nick);
 			
-			/////////uesr 뿌리기///////////
-			sendMsg(s, "DelUserList", "nick");
+			
+			sendMsg(s, "DelUser", nick);
+			server.roomHash.get(act2).remove(nick);
+			
+			/////////user 뿌리기///////////
+			sendMsg(s, "DelUserList", "hi");
 			
 			Set<String> nicks = server.roomHash.get(act2).keySet();
-			if(!nicks.isEmpty()) {
-				String oldNick = "";
-				for(String n : nicks) oldNick += n+ "/" ;
-				sendMsg(s, "OldUser" , oldNick);
+			for (String n : nicks) {
+				sendMsg(s, "NewUser", n);
 			}
+			
+			server.roomHash.get(act2).put(nick, s);
 			sendRoomMsg("NewUser", act2, nick); // 0:act 1:roomName 2:nickname 3~:msg
 			/////////////////////
 			
@@ -104,7 +103,7 @@ public class ServerGate extends Thread {
 			
 		}else if(act.equals("NewRoom")) {
 		
-			server.roomHash.put(act2,server.userHash);
+			server.roomHash.put(act2, new Hashtable<String, Socket>());
 			sendAllMsg(act, act2);
 			
 			
@@ -125,7 +124,7 @@ public class ServerGate extends Thread {
 	public void sendRoomMsg(String ... msg) {	// 0:act 1:roomName 2:nickname 3~:msg
 		Set<String> nicks =server.roomHash.get(msg[1]).keySet();
 		for(String n : nicks) {
-			String send = msg[0];
+			String send = msg[0] + "/";
 			for (int i = 2; i < msg.length; i++) send += msg[i] + "/";
 			sendMsg( server.roomHash.get(msg[1]).get(n), send);
 		}
