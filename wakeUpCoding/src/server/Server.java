@@ -20,13 +20,6 @@ public class Server {
 		userHash = new Hashtable<String, Socket>();
 		roomHash = new Hashtable<String, Hashtable<String,Socket>>();
 		
-		// Å×½ºÆ®//////////////////////////
-//		roomHash.put("proto",new Hashtable<String, Socket>());
-		////////////////////////////////////
-		
-
-		
-		
 		
 		try {
 			ss = new ServerSocket(7777);

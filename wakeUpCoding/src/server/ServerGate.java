@@ -8,11 +8,15 @@ import java.util.Hashtable;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import javax.swing.JOptionPane;
+
+
 public class ServerGate extends Thread {
 	Socket s;
 	DataInputStream dis;
 	DataOutputStream dos;
 	StringTokenizer st;
+	
 	
 	
 //	Hashtable<String, Socket> userHash;
@@ -41,7 +45,6 @@ public class ServerGate extends Thread {
 
 	// 시작
 	public void applyMsg(String msg) throws IOException {
-		//토큰으로 알아서 나누세요. 첫글은대문자
 		st = new StringTokenizer(msg, "/");
 		
 		String act = st.nextToken(); // 행동
@@ -61,7 +64,6 @@ public class ServerGate extends Thread {
 			}	
 			
 			server.userHash.put(act2, s);
-			System.out.println("닉네임 : " + act2 + "==>" + olds);
 			sendAllMsg(act, act2);
 			
 			/////////방뿌리기//////////
@@ -75,6 +77,7 @@ public class ServerGate extends Thread {
 			
 		} else if(act.equals("JoinRoom")) {
 			String nick = st.nextToken();
+			System.out.println(nick);
 			server.roomHash.get(act2).put(nick, s);
 			System.out.println(nick);
 			
@@ -87,10 +90,10 @@ public class ServerGate extends Thread {
 				for(String n : nicks) oldNick += n+ "/" ;
 				sendMsg(s, "OldUser" , oldNick);
 			}
-			sendRoomMsg("NewUser", "proto", nick); // 0:act 1:roomName 2:nickname 3~:msg
+			sendRoomMsg("NewUser", act2, nick); // 0:act 1:roomName 2:nickname 3~:msg
 			/////////////////////
 			
-			sendRoomMsg("Chatting", "proto", "관리자", nick+"님이 입장하였습니다.");
+			sendRoomMsg("Chatting", act2, "관리자", nick+"님이 입장하였습니다.");
 			
 			
 		} else if (act.equals("Chatting")) {
@@ -99,6 +102,13 @@ public class ServerGate extends Thread {
 			String chat = st.nextToken();
 			sendRoomMsg(act, roomName, nick, chat);
 			
+		}else if(act.equals("NewRoom")) {
+		
+			server.roomHash.put(act2,server.userHash);
+			sendAllMsg(act, act2);
+			
+			
+
 		}
 
 	}// 종료
