@@ -17,6 +17,7 @@ public class ServerGate extends Thread {
 	StringTokenizer st;
 	
 	
+	
 //	Hashtable<String, Socket> userHash;
 	Server server;
 //	public ServerGate(Socket s,Hashtable<String, Socket> userHash, Hashtable<String, Hashtable<String, Socket>> roomHash) throws IOException {
@@ -74,8 +75,21 @@ public class ServerGate extends Thread {
 			sendAllMsg(act, act2, null);
 
 		}else if(act.equals("NewRoom")) {
+//			sendMsg("NewRoom/" + act2);
+			String oldrooms = "";
+			if(!server.roomHash.isEmpty()) {
+				Set<String> rooms = server.roomHash.keySet();
+				for(String room : rooms) {
+					oldrooms += "/" + room;
+				}
+				sendMsg("OldRoom" + oldrooms, s);
+			}	
 			
-			sendMsg("NewRoom/" + act2);
+			server.roomHash.put(act2,server.userHash);
+			System.out.println("´Ð³×ÀÓ : " + act2 + "==>" + oldrooms);
+			sendAllMsg(act, act2, null);
+			
+			
 
 		}
 

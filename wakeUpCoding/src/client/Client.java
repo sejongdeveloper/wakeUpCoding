@@ -12,7 +12,7 @@ public class Client {
 	private Socket s;
 	public String nick;
 	Hashtable<String, Hashtable<String,Socket>> roomHash = new Hashtable<String, Hashtable<String,Socket>>();
-
+	public String room;
 
 	public Client() {
 		ClientAction ca = new ClientAction(this);	
@@ -37,12 +37,12 @@ public class Client {
 	}
 	
 	// 방생성
-	public Hashtable<String, Hashtable<String,Socket>> newRoom() {
-		String roomname = JOptionPane.showInputDialog("방 이름");
-		sendMsg("NewRoom/ " + roomname);// 메세지를 통하여 방이름을 보내준다.
-		roomHash.put(roomname, new Hashtable<String, Socket>());
-		return roomHash;
-	}
+//	public Hashtable<String, Hashtable<String,Socket>> newRoom() {
+//		String roomname = JOptionPane.showInputDialog("방 이름");
+//		sendMsg("NewRoom/ " + roomname);// 메세지를 통하여 방이름을 보내준다.
+//		roomHash.put(roomname, new Hashtable<String, Socket>());
+//		return roomHash;
+//	}
 	
 	// 방참여
 	public void joinRoom() {

@@ -52,11 +52,8 @@ public class ClientRead extends Thread {
 
 		} else if (act.equals("NewRoom")) {
 			ca.rList.add(act2);
-			while(st.hasMoreTokens()) {
-				ca.rList.add(st.nextToken());
-			}
-			ca.roomList.setListData(ca.rList);		
+			ca.roomList.setListData(ca.rList);
+		}
 
 		}
 	}
-}
