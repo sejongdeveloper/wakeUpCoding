@@ -8,11 +8,15 @@ import java.util.Hashtable;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import javax.swing.JOptionPane;
+
+
 public class ServerGate extends Thread {
 	Socket s;
 	DataInputStream dis;
 	DataOutputStream dos;
 	StringTokenizer st;
+	
 	
 	
 //	Hashtable<String, Socket> userHash;
@@ -41,7 +45,6 @@ public class ServerGate extends Thread {
 
 	// 시작
 	public void applyMsg(String msg) throws IOException {
-		//토큰으로 알아서 나누세요. 첫글은대문자
 		st = new StringTokenizer(msg, "/");
 		
 		String act = st.nextToken(); // 행동
@@ -50,59 +53,104 @@ public class ServerGate extends Thread {
 		System.out.println("act2   : " + act2);
 		//act = "chatting/nickname/ content"
 		// 구현하세요.
-		if (act.equals("Chatting")) {
-			String nick = act2; // 나중에 방이름으로 처리해야함
-			String message = st.nextToken();
-			System.out.println("nick:" + act2);
-			System.out.println("message:" + message);
-			sendAllMsg(act, nick, message);
-			
-		} else if (act.equals("NewUser")) {
+		if (act.equals("NewUser")) {
 			String olds = "";
 			if(!server.userHash.isEmpty()) {
 				Set<String> nicks = server.userHash.keySet();
 				for(String n : nicks) {
 					olds += "/" + n;
 				}
-				sendMsg("OldUser" + olds, s);
+				sendMsg(s, "OldUser" + olds);
 			}	
 			
 			server.userHash.put(act2, s);
-			System.out.println("닉네임 : " + act2 + "==>" + olds);
-			sendAllMsg(act, act2, null);
+			sendAllMsg(act, act2);
+			
 			/////////방뿌리기//////////
-			server.roomHash.put("proto", new Hashtable<String, Socket>());
-			server.roomHash.get("proto").put(act2, s);
-			sendMsg("NewRoom/proto", s);
+			
+			Set<String> roomN = server.roomHash.keySet();
+			for(String name : roomN) {
+				sendMsg(s, "NewRoom", name);
+			}
 			
 			//////////////////////////
 			
+		} else if(act.equals("JoinRoom")) {
+			String nick = st.nextToken();
+			server.roomHash.get(act2).put(nick, s);
+			System.out.println(nick);
+			
+			/////////uesr 뿌리기///////////
+			sendMsg(s, "DelUserList", "nick");
+			
+			Set<String> nicks = server.roomHash.get(act2).keySet();
+			if(!nicks.isEmpty()) {
+				String oldNick = "";
+				for(String n : nicks) oldNick += n+ "/" ;
+				sendMsg(s, "OldUser" , oldNick);
+			}
+			sendRoomMsg("NewUser", act2, nick); // 0:act 1:roomName 2:nickname 3~:msg
+			/////////////////////
+			
+			sendRoomMsg("Chatting", act2, "관리자", nick+"님이 입장하였습니다.");
+			
+			
+		} else if (act.equals("Chatting")) {
+			String roomName = act2; 
+			String nick = st.nextToken();
+			String chat = st.nextToken();
+			sendRoomMsg(act, roomName, nick, chat);
+			
+		}else if(act.equals("NewRoom")) {
+		
+			server.roomHash.put(act2,server.userHash);
+			sendAllMsg(act, act2);
+			
+			
+
 		}
 
 	}// 종료
 	
-	public void sendAllMsg(String act, String nick, String msg) {
+	public void sendAllMsg(String ... msg) {
 		Set<String> nicks = server.userHash.keySet();
 		for(String n : nicks) {
-			try {
-				sendMsg(act + "/"+ nick + "/"+ msg, server.userHash.get(n));
-			} catch (IOException e) {e.printStackTrace();}
-			
+			String send = "";
+			for (int i = 0; i < msg.length; i++) send += msg[i] + "/";
+			sendMsg(server.userHash.get(n), send);
+		}
+	}
+	
+	public void sendRoomMsg(String ... msg) {	// 0:act 1:roomName 2:nickname 3~:msg
+		Set<String> nicks =server.roomHash.get(msg[1]).keySet();
+		for(String n : nicks) {
+			String send = msg[0];
+			for (int i = 2; i < msg.length; i++) send += msg[i] + "/";
+			sendMsg( server.roomHash.get(msg[1]).get(n), send);
 		}
 	}
 	
 
 	// 클라이언트 보내기
-	public void sendMsg(String msg) throws IOException {
-
-		dos = new DataOutputStream(s.getOutputStream());
-		dos.writeUTF(msg);
-		
-	}
+//	public void sendMsg(String msg){
+//
+//		try {
+//			dos = new DataOutputStream(s.getOutputStream());
+//			dos.writeUTF(msg);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//	}
 	
-	public void sendMsg(String msg, Socket s) throws IOException {
+	public void sendMsg(Socket s, String ...msg) {
 
-		dos = new DataOutputStream(s.getOutputStream());
-		dos.writeUTF(msg);
+		try {
+			dos = new DataOutputStream(s.getOutputStream());
+			String send = "";
+			for (int i = 0; i < msg.length; i++) send += msg[i]+ "/";
+			dos.writeUTF(send);
+		} catch (IOException e) {e.printStackTrace();}
 	}
 }

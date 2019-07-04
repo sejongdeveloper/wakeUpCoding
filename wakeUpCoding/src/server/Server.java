@@ -20,13 +20,6 @@ public class Server {
 		userHash = new Hashtable<String, Socket>();
 		roomHash = new Hashtable<String, Hashtable<String,Socket>>();
 		
-		// 테스트//////////////////////////
-		roomHash.put("proto",new Hashtable<String, Socket>());
-		////////////////////////////////////
-		
-
-		
-		
 		
 		try {
 			ss = new ServerSocket(7777);
@@ -36,8 +29,6 @@ public class Server {
 					try {
 						Socket s = ss.accept();
 					
-						
-						
 						//구현 (userHash put())						
 						
 						Thread th = new ServerGate(s, this);
