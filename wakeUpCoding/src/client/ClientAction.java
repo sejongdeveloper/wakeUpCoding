@@ -18,11 +18,17 @@ public class ClientAction extends ClientUI implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnJoin) {
-			JOptionPane.showMessageDialog(null, "채팅방 입장");	
+
+			String roomName = "proto";
+			c.sendMsg("JoinRoom",roomName,c.nick);
+			JOptionPane.showMessageDialog(null, "채팅방 입장");
 		} else if (e.getSource() == btnNewRoom) {
 			JOptionPane.showMessageDialog(null, "채팅방 생성");
+//			c.createRoom();
+
 		} else if (e.getSource() == btnEnter) {
-			c.sendMsg("Chatting/proto/"+c.nick +"/"+ chatField.getText().trim());
+			String roomName = "proto";
+			c.sendMsg("Chatting", roomName, c.nick ,chatField.getText().trim());
 			JOptionPane.showMessageDialog(null, "전송");
 			
 			
