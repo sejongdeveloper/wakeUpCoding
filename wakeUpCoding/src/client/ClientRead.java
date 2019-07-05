@@ -47,6 +47,7 @@ public class ClientRead extends Thread {
 		} else if (act.equals("DelUser")) { // 새로 들어온 유저 UI리스트 추가
 			System.out.println("선벡 "+ ca.uList);
 			ca.uList.remove(act2);
+			System.out.println(act2);
 			System.out.println("후벡" + ca.uList);
 			ca.userList.setListData(ca.uList);
 		} else if (act.equals("NewRoom")) {
@@ -54,7 +55,9 @@ public class ClientRead extends Thread {
 			ca.roomList.setListData(ca.rList);
 		} else if (act.equals("DelUserList")) { // 새로 들어온 유저 UI리스트 추가
 			System.out.println("실행시작");
+			System.out.println(act2);
 			ca.uList.clear();
+			System.out.println("남은사람"+act2);
 			ca.userList.setListData(ca.uList);
 		}
 	
