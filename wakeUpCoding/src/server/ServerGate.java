@@ -26,15 +26,14 @@ public class ServerGate extends Thread {
 	public void run() {
 		try {
 			// 네트워크 읽기 객체(s.getInputStream()) 생성
-			dis = new DataInputStream(s.getInputStream()); 
-
+			dis = new DataInputStream(s.getInputStream());
+			 
 			while (true) { // 항상 읽을 수 있도록 무한로프
 				String msg = dis.readUTF();
 				applyMsg(msg);
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		} catch (IOException e) {} 
+		finally {try {dis.close(); s.close();} catch (IOException e) {}}
 	}
 
 	// 클라이언트가 보내온 msg내용을 구분하여 처리
@@ -113,6 +112,16 @@ public class ServerGate extends Thread {
 			
 			//모든 유저에게 새로운 방이름 UI에 추가하라고 뿌림
 			sendAllMsg(act, act2);	
+		}else if(act.equals("ExitUser")) {
+			String nick = act2;
+			server.userHash.remove(nick);
+			sendAllMsg("DelUser", nick);
+			
+			if(st.hasMoreTokens()) {
+				String roomName = st.nextToken();
+				server.roomHash.get(roomName).remove(nick);
+				sendRoomMsg("Chatting", roomName, "관리자", nick+"님이 퇴장하였습니다.");
+			}
 		}
 
 	}// applyMsg(String msg) end

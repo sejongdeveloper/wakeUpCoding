@@ -13,7 +13,8 @@ public class Client {
 	
 	public Client(String nick) {
 		this.nick = nick;
-		ClientAction ca = new ClientAction(this);	
+		ClientAction ca = new ClientAction(this);
+		
 		try {
 			s = new Socket("localhost", 7777);
 			Thread read = new ClientRead(s, ca);
