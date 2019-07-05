@@ -68,6 +68,7 @@ public class ClientUI extends JFrame{
 		panEast = new JPanel(new BorderLayout(10, 10));
 		panEast.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 		chatArea = new TextArea("채팅 내용\n", 1, 1, TextArea.SCROLLBARS_VERTICAL_ONLY);
+		chatArea.setEditable(false);
 		panEast.add(chatArea, BorderLayout.CENTER);
 		
 		chatField = new JTextField(28);

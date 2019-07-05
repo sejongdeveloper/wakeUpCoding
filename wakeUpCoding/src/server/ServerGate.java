@@ -55,12 +55,15 @@ public class ServerGate extends Thread {
 
 		if (act.equals("NewUser")) { // 새로운 클라이언트(자신) 접속
 
+			if(server.userHash.containsKey(act2)) {
+				sendMsg(s, "Bye/suah"); return;
+			}
+			
 			// 나한테만 기존유저UI 추가하라고 뿌림
 			Set<String> nicks = server.userHash.keySet();
 			for (String nick : nicks) {
 				sendMsg(s, act, nick);
 			}
-
 			// 모든유저에게 내 닉네임UI 추가하라고 뿌림
 			server.userHash.put(act2, s);
 			sendAllMsg(act, act2);
@@ -127,17 +130,19 @@ public class ServerGate extends Thread {
 				server.roomHash.put(act2, new Hashtable<String, Socket>());
 				sendAllMsg(act, act2);
 
-			} else if (act.equals("ExitUser")) {
-				String nick = act2;
-				server.userHash.remove(nick);
-				sendAllMsg("DelUser", nick);
-
-				if (st.hasMoreTokens()) {
-					String roomName = st.nextToken();
-					server.roomHash.get(roomName).remove(nick);
-					sendRoomMsg("Chatting", roomName, "관리자", nick + "님이 퇴장하였습니다.");
-
-				}
+			}
+		} else if (act.equals("ExitUser")) {
+			String nick = act2;
+			System.out.println("삭제 전");
+			server.userHash.remove(nick);
+			sendAllMsg("DelUser", nick);
+			System.out.println("삭제 완료");
+			
+			if (st.hasMoreTokens()) {
+				String roomName = st.nextToken();
+				server.roomHash.get(roomName).remove(nick);
+				sendRoomMsg("Chatting", roomName, "관리자", nick + "님이 퇴장하였습니다.");
+				
 			}
 		}
 	}

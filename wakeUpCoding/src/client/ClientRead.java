@@ -75,6 +75,10 @@ public class ClientRead extends Thread {
 		} else if (act.equals("ChangeTitle")) { 
 			String nick = st.nextToken();
 			ca.setTitle("닉네임:" + nick + "     방이름: " + act2);
+		} else if (act.equals("Bye")) {
+			JOptionPane.showMessageDialog(null, "이미 접속중인 유저입니다");
+			ca.dispose();
+			System.exit(0);
 		}
 	}
 }

@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
+import dbConn.util.DBControll;
+
 public class JoinAction extends JoinUI implements ActionListener{
 	
 	public JoinAction() {
@@ -15,8 +17,7 @@ public class JoinAction extends JoinUI implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 	    if (e.getSource() == btnNew) {
 	         System.out.println("회원가입 버튼 클릭");
-	         System.out.println(idField.getText());
-	         DBControll dbc = new DBControll();
+	         DBControll dbc = new DBControll(this);
 	         dbc.insert();
 	         
 	         dispose(); 

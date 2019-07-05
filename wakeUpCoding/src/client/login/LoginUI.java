@@ -8,11 +8,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class LoginUI extends JFrame {
 	JPanel pTotal, p1, p2, p3;
-	JTextField idField, pwdField;
+	public JTextField idField, pwdField;
 	JButton btnNew, btnLogin;
 	
 	public LoginUI() {
@@ -26,7 +27,7 @@ public class LoginUI extends JFrame {
 		
 		p2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		p2.add(new JLabel("비밀번호"));
-		pwdField = new JTextField(10);
+		pwdField = new JPasswordField(10);
 		p2.add(pwdField);
 		pTotal.add(p2);
 

@@ -12,6 +12,11 @@ public class Server {
 	//대기실 유저
 	Hashtable<String, Socket> userHash; // Hashtable<닉네임, Socket> userHash;
 	
+	
+	public Hashtable<String, Socket> getUserHash() {
+		return userHash;
+	}
+
 	// 방유저
 	Hashtable<String, Hashtable<String, Socket>> roomHash; // Hashtable<방이름, Hashtable<닉네임, Socket>> roomHash;
 	
