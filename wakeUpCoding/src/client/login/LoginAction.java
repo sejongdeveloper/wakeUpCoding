@@ -14,7 +14,7 @@ public class LoginAction extends LoginUI implements ActionListener{
 	private String id;
 	private String pwd;
 	
-	
+	///
 	
 	
 	public LoginAction() {
