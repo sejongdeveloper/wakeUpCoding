@@ -5,32 +5,29 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import ConnecTion.DBControll;
-import client.Client;
-import client.login.Login;
 
-
+import dbConn.util.DBControll;
 
 public class JoinAction extends JoinUI implements ActionListener{
-	private Join j;
-	public JoinAction(Join j) {
-		this.j = j;
-		btnNew.addActionListener(this);		
+	
+	public JoinAction() {
+		btnNew.addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btnNew) {			
-			DBControll dbc = new DBControll(this);
-			dbc.insert();
-			
-			dispose(); 
-//			Client c = new Client(dbc.id);
-//			c.sendMsg("NewUser", pwd);
-//			c.sendMsg("NewUser", nick);
-				
-		}
-	JOptionPane.showMessageDialog(null, "회원가입 되었습니다.");
-	new Login();
+	    if (e.getSource() == btnNew) {
+	         System.out.println("회원가입 버튼 클릭");
+	         DBControll dbc = new DBControll(this);
+	         dbc.insert();
+	         
+	         dispose(); 
+//	         Client c = new Client(dbc.id);
+//	         System.out.println("test2");
+//	         c.sendMsg("NewUser", dbc.id ,dbc.pwd ,dbc.nick);
+	         
+	            
+	      }
+		JOptionPane.showMessageDialog(null, "회원가입 되었습니다.");
 	}
 }

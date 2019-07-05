@@ -8,8 +8,8 @@ public class ConnectT {
 	 
 	    public static void main(String[] args) throws ClassNotFoundException, SQLException {
 	        Class.forName("oracle.jdbc.OracleDriver");
-	        String url = "jdbc:oracle:thin:@10.10.10.171:1521:XE";
-	        String uid = "magic";
+	        String url = "jdbc:oracle:thin:@localhost:1521:XE";
+	        String uid = "sejong";
 	        String pwd = "oracle";
 	        
 	        Connection conn =DriverManager.getConnection(url,uid,pwd);

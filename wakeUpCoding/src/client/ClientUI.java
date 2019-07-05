@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.TextArea;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -15,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -65,9 +68,12 @@ public class ClientUI extends JFrame{
 		panEast = new JPanel(new BorderLayout(10, 10));
 		panEast.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 		chatArea = new TextArea("채팅 내용\n", 1, 1, TextArea.SCROLLBARS_VERTICAL_ONLY);
+		chatArea.setEditable(false);
 		panEast.add(chatArea, BorderLayout.CENTER);
 		
 		chatField = new JTextField(28);
+		
+		
 		p4writeChat = new JPanel(new FlowLayout());
 		p4writeChat.add(chatField);
 		p4writeChat.add(btnEnter = new JButton("전송"));
@@ -80,8 +86,5 @@ public class ClientUI extends JFrame{
 		this.add(panEast);
 		setBounds(100, 150, 560, 400);
 		setVisible(true);
-		
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
 	}
 }

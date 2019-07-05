@@ -8,17 +8,15 @@ public class Client {
 	private DataOutputStream dos;
 	private Socket s;
 	public String nick;
-	
-	public String room;
-	
+
 	public Client(String nick) {
 		this.nick = nick;
-		ClientAction ca = new ClientAction(this);	
+		ClientAction ca = new ClientAction(this);
 		try {
-			s = new Socket("localhost", 7777);
+			s = new Socket("localhost", 7777); // 원래는 서버IP는 변동이 자주 일어나지 않음
 			Thread read = new ClientRead(s, ca);
 			read.start();
-			dos = new DataOutputStream(s.getOutputStream());
+			dos = new DataOutputStream(s.getOutputStream()); // 네트워크 출력 객체(s.getOutputStream()) 생성
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -34,22 +32,4 @@ public class Client {
 		} catch (IOException e) {e.printStackTrace();}
 	}
 	
-	// 방생성
-//	public Hashtable<String, Hashtable<String,Socket>> newRoom() {
-//		String roomname = JOptionPane.showInputDialog("방 이름");
-//		sendMsg("NewRoom/ " + roomname);// 메세지를 통하여 방이름을 보내준다.
-//		roomHash.put(roomname, new Hashtable<String, Socket>());
-//		return roomHash;
-//	}
-	
-	// 방참여
-	public void joinRoom() {
-		
-	}
-	
-	// 방나가기
-	public void leaveRoom() {
-		
-	}
-	
-}
+} // Client end

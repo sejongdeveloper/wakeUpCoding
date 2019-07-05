@@ -12,11 +12,13 @@ import javax.swing.JTextField;
 
 public class JoinUI extends JFrame{
 	JPanel pTotal, p1, p2, p3, p4;
-	public static JTextField idField;
-	public static JTextField pwdField;
-	public static JTextField nickField;
+
+	public JTextField idField, pwdField, nickField;
+
 	JButton btnNew;
 	
+
+
 	public JoinUI() {
 		
 		pTotal = new JPanel(new GridLayout(4, 0, 10, 10));
