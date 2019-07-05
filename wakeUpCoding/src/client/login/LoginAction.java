@@ -29,11 +29,11 @@ public class LoginAction extends LoginUI implements ActionListener{
 			System.out.println("로그인버튼 클릭");
 			id = idField.getText().trim();
 			pwd = pwdField.getText().trim();
-			dispose(); 
 			////////////////////////////////
-			String nick = DBControll.slelct();//String nick 이 DBControll nick이 되야함
+			DBControll db= new DBControll(this);
+			String nick = db.select();
+			dispose(); 
 			
-
 			/////////////////////////
 			Client c = new Client(nick);
 			c.sendMsg("NewUser", nick); // 서버에 닉 보내기
