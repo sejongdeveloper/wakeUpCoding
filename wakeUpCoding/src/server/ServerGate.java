@@ -103,10 +103,12 @@ public class ServerGate extends Thread {
 		} else if (act.equals("Chatting")) { // 채팅내용
 			String roomName = act2; // 방이름
 			String nick = st.nextToken(); // 닉네임
-			String chat = st.nextToken(); // 채팅내용
+			if(st.hasMoreTokens()) {
+				String chat = st.nextToken(); // 채팅내용
+				// 해당방에 들어있는 모든 유저에게 채팅내용 뿌림
+				sendRoomMsg(act, roomName, nick, chat); 
+			}
 			
-			// 해당방에 들어있는 모든 유저에게 채팅내용 뿌림
-			sendRoomMsg(act, roomName, nick, chat); 
 			
 		}else if(act.equals("NewRoom")) { // 방생성
 			// 방이름 HashTable에 추가(put)

@@ -2,7 +2,7 @@ package client.join;
 
 public class Join {
 	public Join() {
-		new JoinAction(this);
+		new JoinAction();
 	}
 	
 	public static void main(String[] args) {

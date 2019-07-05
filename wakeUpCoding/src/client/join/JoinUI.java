@@ -15,6 +15,8 @@ public class JoinUI extends JFrame{
 	JTextField idField, pwdField, nickField;
 	JButton btnNew;
 	
+
+
 	public JoinUI() {
 		
 		pTotal = new JPanel(new GridLayout(4, 0, 10, 10));

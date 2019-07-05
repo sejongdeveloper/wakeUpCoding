@@ -37,7 +37,7 @@ public class ClientAction extends ClientUI implements ActionListener{
 				JOptionPane.showMessageDialog(null, "채팅방이 없습니다.");
 				return;
 			}
-			
+
 			// 
 			if (!roomName.isEmpty()) {
 				c.sendMsg("Chatting", roomName, "관리자", c.nick+"님이 퇴장하였습니다.");
@@ -60,8 +60,11 @@ public class ClientAction extends ClientUI implements ActionListener{
 		} else if (e.getSource() == btnNewRoom) { // 방생성
 			String roomname = JOptionPane.showInputDialog("방 이름");
 			if(roomname == null || roomname.isEmpty()) return;
+			if(roomname.equalsIgnoreCase("none")) {
+				JOptionPane.showMessageDialog(null, "다른 방이름을 입력해주세요.");
+				return;
+			}
 			c.sendMsg("NewRoom/" + roomname);// 메세지를 통하여 방이름을 보내준다.
-//			c.newRoom();
 		} else if (e.getSource() == btnEnter) {
 			if(!roomName.isEmpty()) c.sendMsg("Chatting", roomName, c.nick ,chatField.getText().trim());
 			chatField.setText(""); // 입력필드 초기화
