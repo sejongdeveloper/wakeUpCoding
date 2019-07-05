@@ -68,6 +68,7 @@ public class ClientRead extends Thread {
 
 		} else if (act.equals("DelUserList")) { // 새로 들어온 유저 UI리스트 추가
 			ca.uList.clear();
+			System.out.println("남은사람"+act2);
 			ca.userList.setListData(ca.uList);
 			
 		// UI제목 변경
