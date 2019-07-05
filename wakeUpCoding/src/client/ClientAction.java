@@ -18,15 +18,13 @@ public class ClientAction extends ClientUI implements ActionListener{
 		btnEnter.addActionListener(this);
 		btnJoin.addActionListener(this);
 		btnNewRoom.addActionListener(this);
+		
 		addWindowListener(new WindowAdapter() {
-
 			@Override
 			public void windowClosing(WindowEvent e) {
-				c.sendMsg("ExitUser",roomName, c.nick);
-				
+				c.sendMsg("ExitUser", c.nick, roomName);
 				System.exit(0);
 			}
-			
 		});
 		setTitle("닉네임:" + c.nick + "     방이름: 대기실");
 	}
