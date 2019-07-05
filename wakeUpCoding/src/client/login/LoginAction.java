@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 
 import client.Client;
 import client.join.Join;
-import dbConn.util.DBControll;
 
 public class LoginAction extends LoginUI implements ActionListener,KeyListener{
 
@@ -47,7 +46,6 @@ public class LoginAction extends LoginUI implements ActionListener,KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == 10) {
-			c.sendMsg("NewUser", nick); // 서버에 닉 보내기
 
 		}
 		

@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import dbConn.util.DBControll;
+import client.login.DBControll;
 
 public class JoinAction extends JoinUI implements ActionListener{
 	

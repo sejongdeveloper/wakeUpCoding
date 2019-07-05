@@ -1,4 +1,4 @@
-package dbConn.util;
+package client.login;
 
 import java.beans.Statement;
 import java.sql.Connection;
@@ -7,7 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import client.join.JoinAction;
-import client.login.LoginAction;
+import dbConn.util.ConnectionCloseHelper;
+import dbConn.util.ConnectionSingletonHelper;
 
 public class DBControll {// controll
 	private String id;
