@@ -18,8 +18,7 @@ public class LoginAction extends LoginUI implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if (e.getSource() == btnLogin) {
-			System.out.println("로그인버튼 클릭");
+		if (e.getSource() == btnLogin) { // 로그인
 			id = idField.getText().trim();
 			dispose(); 
 			////////////////////////////////
