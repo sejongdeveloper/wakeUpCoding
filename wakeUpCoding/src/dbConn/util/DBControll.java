@@ -17,32 +17,32 @@ public class DBControll {// controll
 	private LoginAction la;
 
 	Connection conn = null;
-	PreparedStatement pstmt = null;
 	Statement stmt = null;
+	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	
+	//로그인 매개값, DB연결 싱글톤
 	public DBControll(LoginAction la) {
 		this.la = la;  
 		conn = ConnectionSingletonHelper.getConnection();
 	}
+	
+	//회원가입 매개값, DB연결 싱글톤
 	public DBControll(JoinAction ja) {
 		this.ja = ja;
 		conn = ConnectionSingletonHelper.getConnection();
 	}
-
+	
+	//DB관련 종료
 	public void close() {
-		try {
-
-			rs.close();
-			pstmt.close();
-			conn.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		ConnectionCloseHelper.close(rs);
+		ConnectionCloseHelper.close(pstmt);
+		ConnectionCloseHelper.close(conn);
+		
 	}// close
 
+	//회원가입
 	public void insert() {
-		System.out.println("insert()");
 		id = ja.idField.getText().trim();
 		pwd = ja.pwdField.getText().trim();
 		nick = ja.nickField.getText().trim();
@@ -58,9 +58,11 @@ public class DBControll {// controll
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close();
 		}
 
-	}
+	} // insert() end
 	
 	//로그인
 	public String select() {
@@ -70,8 +72,8 @@ public class DBControll {// controll
 		
 		try {
 			pstmt = conn.prepareStatement("Select nick from UserDB where id = ? and pwd = ?"); 
-			pstmt.setString(1, la.idField.getText().trim());
-			pstmt.setString(2, la.pwdField.getText().trim());
+			pstmt.setString(1, id);
+			pstmt.setString(2, pwd);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				nick = rs.getString("nick");
@@ -79,10 +81,9 @@ public class DBControll {// controll
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			ConnectionCloseHelper.close(pstmt);
+			close();
 		}
-		
 		return nick;
 
-	}
+	} // select() end
 }// class close
