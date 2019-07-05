@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import client.join.Join;
 
 public class LoginUI extends JFrame {
 	JPanel pTotal, p1, p2, p3;

@@ -1,5 +1,8 @@
 package ConnecTion;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 public class ConnectT {
 	
 	 
@@ -10,19 +13,10 @@ public class ConnectT {
 	        String pwd = "oracle";
 	        
 	        Connection conn =DriverManager.getConnection(url,uid,pwd);
-	        System.out.println("test");
-//	        Statement stmt = conn.createStatement("CREATE TABLE na (no number , name varchar2(20) , job varchar2(20) , bunho number)");
 	        Statement stmt = conn.createStatement();
-	        System.out.println("test");
-	        //회원 관리자 테이블 
-	        //primary key -admin ,pwd nao null ,닉네임  not null unique
-	        //관리자 테이블 아이디 admin , 비번 oracle , 닉네임 운영자
-	        //접속날짜 테이블 아이디 frogin key , 날짜 sysdate
-	        //로그인 회원테이블 조회하여 구현 , 관리자면 서버시작
-	        //회원 가입 - 회원 테이블 등록하여 구현
 	        
-	        stmt.executeUpdate("CREATE TABLE wakeup (no number , name varchar2(20) , job varchar2(20) , bunho number)");        
-	        System.out.println("완료");
+       stmt.executeUpdate("create table UserDB (id varchar2(20) CONSTRAINT id_pk PRIMARY KEY,pwd varchar2(20) not null, nick varchar2(18) not null)");        
+	        System.out.println("생성 완료");
 	        stmt.close();
 	        conn.close();
 	        

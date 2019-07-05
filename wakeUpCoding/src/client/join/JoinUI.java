@@ -12,7 +12,9 @@ import javax.swing.JTextField;
 
 public class JoinUI extends JFrame{
 	JPanel pTotal, p1, p2, p3, p4;
-	JTextField idField, pwdField, nickField;
+	public static JTextField idField;
+	public static JTextField pwdField;
+	public static JTextField nickField;
 	JButton btnNew;
 	
 	public JoinUI() {
@@ -20,7 +22,7 @@ public class JoinUI extends JFrame{
 		pTotal = new JPanel(new GridLayout(4, 0, 10, 10));
 		pTotal.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		p1 = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		p1.add(new JLabel("아  이  디"));
+		p1.add(new JLabel("아  이  디"));		
 		idField = new JTextField(10);
 		p1.add(idField);
 		pTotal.add(p1);

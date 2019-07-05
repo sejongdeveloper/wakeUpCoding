@@ -19,13 +19,12 @@ public class ConnectionSingletonHelper {
 	private ConnectionSingletonHelper() {}
 	
 	public static Connection getConnection() {
-		
-		if(conn != null) return conn; 
-		
+
+		//if(conn != null) return conn; 
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
 			conn = DriverManager.getConnection(
-					"jdbc:oracle:thin:@10.10.10.166:1521:XE", "kingsmile", "oracle");
+					"jdbc:oracle:thin:@10.10.10.171:1521:XE", "magic", "oracle");
 			
 		} catch (Exception e) {e.printStackTrace();} finally {return conn;}
 	} // getConnection(String dsn) end
