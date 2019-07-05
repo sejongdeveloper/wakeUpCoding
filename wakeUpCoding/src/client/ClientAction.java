@@ -61,6 +61,7 @@ public class ClientAction extends ClientUI implements ActionListener{
 			
 		} else if (e.getSource() == btnNewRoom) { // 방생성
 			String roomname = JOptionPane.showInputDialog("방 이름");
+			if(roomname == null || roomname.isEmpty()) return;
 			c.sendMsg("NewRoom/" + roomname);// 메세지를 통하여 방이름을 보내준다.
 //			c.newRoom();
 		} else if (e.getSource() == btnEnter) {
