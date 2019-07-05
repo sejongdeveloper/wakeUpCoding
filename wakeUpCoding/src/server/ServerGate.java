@@ -27,17 +27,19 @@ public class ServerGate extends Thread {
 		try {
 			// 네트워크 읽기 객체(s.getInputStream()) 생성
 			dis = new DataInputStream(s.getInputStream());
-<<<<<<< HEAD
-			 
-=======
 
->>>>>>> JaeJun
 			while (true) { // 항상 읽을 수 있도록 무한로프
 				String msg = dis.readUTF();
 				applyMsg(msg);
 			}
-		} catch (IOException e) {} 
-		finally {try {dis.close(); s.close();} catch (IOException e) {}}
+		} catch (IOException e) {
+		} finally {
+			try {
+				dis.close();
+				s.close();
+			} catch (IOException e) {
+			}
+		}
 	}
 
 	// 클라이언트가 보내온 msg내용을 구분하여 처리
@@ -94,44 +96,6 @@ public class ServerGate extends Thread {
 
 			// 현재방에 나를 등록
 			server.roomHash.get(act2).put(nick, s);
-<<<<<<< HEAD
-			
-			//현재방 모두에게 내 닉만 UI 추가하라고 뿌림
-			sendRoomMsg("NewUser", act2, nick); 
-			
-			//현재방 모두에게 내 닉이 입장했다고 뿌림
-			sendRoomMsg("Chatting", act2, "관리자", nick+"님이 입장하였습니다.");			
-			
-			//현재방으로 UI타이틀 수정
-			sendMsg(s, "ChangeTitle", act2, nick);
-			
-		} else if (act.equals("Chatting")) { // 채팅내용
-			String roomName = act2; // 방이름
-			String nick = st.nextToken(); // 닉네임
-			if(st.hasMoreTokens()) {
-				String chat = st.nextToken(); // 채팅내용
-				// 해당방에 들어있는 모든 유저에게 채팅내용 뿌림
-				sendRoomMsg(act, roomName, nick, chat); 
-			}
-			
-			
-		}else if(act.equals("NewRoom")) { // 방생성
-			// 방이름 HashTable에 추가(put)
-			// server.roomHash.put(방이름, new Hashtable<닉네임, Socket>());
-			server.roomHash.put(act2, new Hashtable<String, Socket>());
-			
-			//모든 유저에게 새로운 방이름 UI에 추가하라고 뿌림
-			sendAllMsg(act, act2);	
-		}else if(act.equals("ExitUser")) {
-			String nick = act2;
-			server.userHash.remove(nick);
-			sendAllMsg("DelUser", nick);
-			
-			if(st.hasMoreTokens()) {
-				String roomName = st.nextToken();
-				server.roomHash.get(roomName).remove(nick);
-				sendRoomMsg("Chatting", roomName, "관리자", nick+"님이 퇴장하였습니다.");
-=======
 
 			// 현재방 모두에게 내 닉만 UI 추가하라고 뿌림
 			sendRoomMsg("NewUser", act2, nick);
@@ -139,27 +103,41 @@ public class ServerGate extends Thread {
 			// 현재방 모두에게 내 닉이 입장했다고 뿌림
 			sendRoomMsg("Chatting", act2, "관리자", nick + "님이 입장하였습니다.");
 
+			// 현재방으로 UI타이틀 수정
+			sendMsg(s, "ChangeTitle", act2, nick);
+
 		} else if (act.equals("Chatting")) { // 채팅내용
 			String roomName = act2; // 방이름
 			String nick = st.nextToken(); // 닉네임
-			String chat = st.nextToken(); // 채팅내용
-
-			// 해당방에 들어있는 모든 유저에게 채팅내용 뿌림
-			sendRoomMsg(act, roomName, nick, chat);
+			if (st.hasMoreTokens()) {
+				String chat = st.nextToken(); // 채팅내용
+				// 해당방에 들어있는 모든 유저에게 채팅내용 뿌림
+				sendRoomMsg(act, roomName, nick, chat);
+			}
 
 		} else if (act.equals("NewRoom")) { // 방생성
 			// 1.같은이름의 방이있는지 찾아보기
 			if (server.roomHash.get(act2) != null) {
-				
 				// 만들고자하는 방의 이름이 동일한 방이 있을경우
 				act = "CreateRoomfail";
-				sendMsg(s,act,act2);
+				sendMsg(s, act, act2);
+
 			}
 			if (server.roomHash.get(act2) == null) {
-
 				server.roomHash.put(act2, new Hashtable<String, Socket>());
 				sendAllMsg(act, act2);
->>>>>>> JaeJun
+
+			} else if (act.equals("ExitUser")) {
+				String nick = act2;
+				server.userHash.remove(nick);
+				sendAllMsg("DelUser", nick);
+
+				if (st.hasMoreTokens()) {
+					String roomName = st.nextToken();
+					server.roomHash.get(roomName).remove(nick);
+					sendRoomMsg("Chatting", roomName, "관리자", nick + "님이 퇴장하였습니다.");
+
+				}
 			}
 		}
 	}
