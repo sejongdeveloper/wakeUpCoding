@@ -6,6 +6,7 @@ import java.util.Set;
 
 public class Test {
 	public static void main(String[] args) {
+		// 일어나 코딩해야지
 		
 		Hashtable<String, Hashtable<String,Socket>> roomHash = new Hashtable<String, Hashtable<String,Socket>>();
 		
