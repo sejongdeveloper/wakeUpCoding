@@ -4,19 +4,18 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Hashtable;
-import java.util.Set;
 
 public class Server {
 	
 	private ServerSocket ss;
-	Hashtable<String, Socket> userHash; // 수정가능한 부분
-	Hashtable<String, Hashtable<String, Socket>> roomHash; 
+	//대기실 유저
+	Hashtable<String, Socket> userHash; // Hashtable<닉네임, Socket> userHash;
 	
+	// 방유저
+	Hashtable<String, Hashtable<String, Socket>> roomHash; // Hashtable<방이름, Hashtable<닉네임, Socket>> roomHash;
 	
-	
-	
-	
-	public Server() { //연결
+	public Server() { 
+		// 객체 생성 (new 연산자)
 		userHash = new Hashtable<String, Socket>();
 		roomHash = new Hashtable<String, Hashtable<String,Socket>>();
 		
@@ -37,18 +36,16 @@ public class Server {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-				}//while
+				}// while end
 			});
 			thread.start();
 			
 			
 			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		} catch (IOException e) { e.printStackTrace(); } // try end
 	}// Server() end
 	
 	public static void main(String[] args) {
-		new Server();
+		new Server(); // 서버시작
 	}
 }

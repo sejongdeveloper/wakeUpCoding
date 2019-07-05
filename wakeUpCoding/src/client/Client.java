@@ -3,9 +3,6 @@ package client;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.Hashtable;
-
-import javax.swing.JOptionPane;
 
 public class Client {
 	private DataOutputStream dos;
@@ -13,8 +10,9 @@ public class Client {
 	public String nick;
 	
 	public String room;
-
-	public Client() {
+	
+	public Client(String nick) {
+		this.nick = nick;
 		ClientAction ca = new ClientAction(this);	
 		try {
 			s = new Socket("localhost", 7777);
@@ -54,8 +52,4 @@ public class Client {
 		
 	}
 	
-	
-	public static void main(String[] args) {
-		new Client();
-	}
 }
