@@ -95,7 +95,10 @@ public class ServerGate extends Thread {
 			sendRoomMsg("NewUser", act2, nick); 
 			
 			//현재방 모두에게 내 닉이 입장했다고 뿌림
-			sendRoomMsg("Chatting", act2, "관리자", nick+"님이 입장하였습니다.");								
+			sendRoomMsg("Chatting", act2, "관리자", nick+"님이 입장하였습니다.");			
+			
+			//현재방으로 UI타이틀 수정
+			sendMsg(s, "ChangeTitle", act2, nick);
 			
 		} else if (act.equals("Chatting")) { // 채팅내용
 			String roomName = act2; // 방이름
