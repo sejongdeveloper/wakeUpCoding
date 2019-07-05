@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.TextArea;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -68,6 +70,8 @@ public class ClientUI extends JFrame{
 		panEast.add(chatArea, BorderLayout.CENTER);
 		
 		chatField = new JTextField(28);
+		
+		
 		p4writeChat = new JPanel(new FlowLayout());
 		p4writeChat.add(chatField);
 		p4writeChat.add(btnEnter = new JButton("Àü¼Û"));

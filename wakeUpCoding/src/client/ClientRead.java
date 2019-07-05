@@ -56,12 +56,9 @@ public class ClientRead extends Thread {
 			System.out.println("실행시작");
 			ca.uList.clear();
 			ca.userList.setListData(ca.uList);
-		}else if (act.equals("CreateRoomfail")) {// 만들지못했을때
-			JOptionPane.showMessageDialog(null, "방만들기 실패", "알림", JOptionPane.ERROR_MESSAGE);
+		}
 	
 }
 }
 
 
-
-}
