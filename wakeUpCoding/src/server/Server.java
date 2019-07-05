@@ -13,9 +13,6 @@ public class Server {
 	Hashtable<String, Hashtable<String, Socket>> roomHash; 
 	
 	
-	
-	
-	
 	public Server() { //¿¬°á
 		userHash = new Hashtable<String, Socket>();
 		roomHash = new Hashtable<String, Hashtable<String,Socket>>();
