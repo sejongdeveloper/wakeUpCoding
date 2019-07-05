@@ -14,6 +14,7 @@ public class LoginAction extends LoginUI implements ActionListener{
 		btnNew.addActionListener(this);
 		btnLogin.addActionListener(this);
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
@@ -21,11 +22,10 @@ public class LoginAction extends LoginUI implements ActionListener{
 			System.out.println("로그인버튼 클릭");
 			id = idField.getText().trim();
 			dispose(); 
-			Client c = new Client();
 			////////////////////////////////
 			String nick = String.valueOf((int)(Math.random()*100)+1);
 			/////////////////////////
-			c.nick = nick; // 닉 등록
+			Client c = new Client(nick);
 			c.sendMsg("NewUser", nick); // 서버에 닉 보내기
 			
 		} else if (e.getSource() == btnNew) {

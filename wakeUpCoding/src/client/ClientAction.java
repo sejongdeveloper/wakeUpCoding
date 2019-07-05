@@ -18,7 +18,7 @@ public class ClientAction extends ClientUI implements ActionListener{
 		btnJoin.addActionListener(this);
 		btnNewRoom.addActionListener(this);
 		
-		setTitle(c.nick);
+		setTitle("닉네임:" + c.nick + "     방이름: 대기실");
 		
 	}
 
