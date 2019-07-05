@@ -15,8 +15,6 @@ public class ServerGate extends Thread {
 	DataOutputStream dos;
 	StringTokenizer st;
 	
-	
-	
 	Server server;
 	public ServerGate(Socket s,Server server) throws IOException {
 		this.s = s;
@@ -27,9 +25,10 @@ public class ServerGate extends Thread {
 	@Override
 	public void run() {
 		try {
-			dis = new DataInputStream(s.getInputStream());
+			// 네트워크 읽기 객체(s.getInputStream()) 생성
+			dis = new DataInputStream(s.getInputStream()); 
 
-			while (true) {
+			while (true) { // 항상 읽을 수 있도록 무한로프
 				String msg = dis.readUTF();
 				applyMsg(msg);
 			}
@@ -118,41 +117,28 @@ public class ServerGate extends Thread {
 
 	}// applyMsg(String msg) end
 	
+	// 모든 유저에게 보내기
 	public void sendAllMsg(String ... msg) {
-		Set<String> nicks = server.userHash.keySet();
+		Set<String> nicks = server.userHash.keySet(); // 접속한 모든 닉네임 얻기
+		String send = "";
 		for(String n : nicks) {
-			String send = "";
-			for (int i = 0; i < msg.length; i++) send += msg[i] + "/";
-			sendMsg(server.userHash.get(n), send);
+			for (int i = 0; i < msg.length; i++) send += msg[i] + "/"; // ex1) msg[0]/msg[1]/msg[2] | ex2) NewUser/nick/
+			sendMsg(server.userHash.get(n), send); // sendMsg( n[닉네임에 대한 소켓], send[예: NewUser/nick/] );
 		}
 	}
 	
-
+	// 해당방에 대한 모든 유저에게 보내기
 	public void sendRoomMsg(String ... msg) {	// 0:act 1:roomName 2:nickname 3~:msg
 		Set<String> nicks =server.roomHash.get(msg[1]).keySet();
 		for(String n : nicks) {
 			String send = msg[0] + "/";
 			for (int i = 2; i < msg.length; i++) send += msg[i] + "/";
-			sendMsg( server.roomHash.get(msg[1]).get(n), send);
+			sendMsg( server.roomHash.get(msg[1]).get(n), send); //server.roomHash.get(msg[1]).get(n) => 해당방에 속한 n닉네임의 소켓
 		}
 	}
 	
-
-	// 클라이언트 보내기
-//	public void sendMsg(String msg){
-//
-//		try {
-//			dos = new DataOutputStream(s.getOutputStream());
-//			dos.writeUTF(msg);
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//	}
-	
+	// 해당소켓 유저에게 보내기
 	public void sendMsg(Socket s, String ...msg) {
-
 		try {
 			dos = new DataOutputStream(s.getOutputStream());
 			String send = "";

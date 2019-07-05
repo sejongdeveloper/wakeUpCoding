@@ -5,8 +5,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import client.login.LoginAction;
-
 public class ClientAction extends ClientUI implements ActionListener{
 	Client c;
 	String roomName = "";
