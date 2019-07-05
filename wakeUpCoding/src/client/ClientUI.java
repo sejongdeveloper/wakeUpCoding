@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -80,8 +81,5 @@ public class ClientUI extends JFrame{
 		this.add(panEast);
 		setBounds(100, 150, 560, 400);
 		setVisible(true);
-		
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
 	}
 }

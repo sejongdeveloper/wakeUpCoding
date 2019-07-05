@@ -11,7 +11,8 @@ public class Client {
 	
 	public Client(String nick) {
 		this.nick = nick;
-		ClientAction ca = new ClientAction(this);	
+		ClientAction ca = new ClientAction(this);
+		
 		try {
 			s = new Socket("localhost", 7777); // 원래는 서버IP는 변동이 자주 일어나지 않음
 			Thread read = new ClientRead(s, ca);

@@ -2,8 +2,12 @@ package client;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JOptionPane;
+
+import client.login.LoginAction;
 
 public class ClientAction extends ClientUI implements ActionListener{
 	Client c;
@@ -12,13 +16,20 @@ public class ClientAction extends ClientUI implements ActionListener{
 	
 	public ClientAction(Client c) {
 		this.c = c;
-		
 		btnEnter.addActionListener(this);
 		btnJoin.addActionListener(this);
 		btnNewRoom.addActionListener(this);
-		
+		addWindowListener(new WindowAdapter() {
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				c.sendMsg("ExitUser",roomName, c.nick);
+				
+				System.exit(0);
+			}
+			
+		});
 		setTitle("닉네임:" + c.nick + "     방이름: 대기실");
-		
 	}
 
 	@Override
@@ -53,9 +64,9 @@ public class ClientAction extends ClientUI implements ActionListener{
 		} else if (e.getSource() == btnNewRoom) { // 방생성
 			String roomname = JOptionPane.showInputDialog("방 이름");
 			c.sendMsg("NewRoom/" + roomname);// 메세지를 통하여 방이름을 보내준다.
-			
-		} else if (e.getSource() == btnEnter) { // 채팅전송
-			c.sendMsg("Chatting", roomName, c.nick ,chatField.getText().trim());
+//			c.newRoom();
+		} else if (e.getSource() == btnEnter) {
+			if(!roomName.isEmpty()) c.sendMsg("Chatting", roomName, c.nick ,chatField.getText().trim());
 			chatField.setText(""); // 입력필드 초기화
 			
 		} // if end
