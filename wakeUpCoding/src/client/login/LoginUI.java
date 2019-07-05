@@ -14,7 +14,7 @@ import javax.swing.text.PasswordView;
 
 public class LoginUI extends JFrame {
 	JPanel pTotal, p1, p2, p3;
-	JTextField idField, pwdField;
+	public JTextField idField, pwdField;
 	JButton btnNew, btnLogin;
 	
 	public LoginUI() {
@@ -29,7 +29,7 @@ public class LoginUI extends JFrame {
 		p2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		p2.add(new JLabel("비밀번호"));
 		pwdField = new JPasswordField(10);
-		System.out.println(pwdField.getText());
+
 		p2.add(pwdField);
 		pTotal.add(p2);
 

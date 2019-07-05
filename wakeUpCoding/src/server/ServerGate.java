@@ -33,7 +33,12 @@ public class ServerGate extends Thread {
 				applyMsg(msg);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+		} finally {
+			try {
+				dis.close();
+				s.close();
+			} catch (IOException e) {
+			}
 		}
 	}
 
@@ -50,12 +55,15 @@ public class ServerGate extends Thread {
 
 		if (act.equals("NewUser")) { // 새로운 클라이언트(자신) 접속
 
+			if(server.userHash.containsKey(act2)) {
+				sendMsg(s, "Bye/suah"); return;
+			}
+			
 			// 나한테만 기존유저UI 추가하라고 뿌림
 			Set<String> nicks = server.userHash.keySet();
 			for (String nick : nicks) {
 				sendMsg(s, act, nick);
 			}
-
 			// 모든유저에게 내 닉네임UI 추가하라고 뿌림
 			server.userHash.put(act2, s);
 			sendAllMsg(act, act2);
@@ -98,26 +106,43 @@ public class ServerGate extends Thread {
 			// 현재방 모두에게 내 닉이 입장했다고 뿌림
 			sendRoomMsg("Chatting", act2, "관리자", nick + "님이 입장하였습니다.");
 
+			// 현재방으로 UI타이틀 수정
+			sendMsg(s, "ChangeTitle", act2, nick);
+
 		} else if (act.equals("Chatting")) { // 채팅내용
 			String roomName = act2; // 방이름
 			String nick = st.nextToken(); // 닉네임
-			String chat = st.nextToken(); // 채팅내용
-
-			// 해당방에 들어있는 모든 유저에게 채팅내용 뿌림
-			sendRoomMsg(act, roomName, nick, chat);
+			if (st.hasMoreTokens()) {
+				String chat = st.nextToken(); // 채팅내용
+				// 해당방에 들어있는 모든 유저에게 채팅내용 뿌림
+				sendRoomMsg(act, roomName, nick, chat);
+			}
 
 		} else if (act.equals("NewRoom")) { // 방생성
 			// 1.같은이름의 방이있는지 찾아보기
 			if (server.roomHash.get(act2) != null) {
-				
 				// 만들고자하는 방의 이름이 동일한 방이 있을경우
 				act = "CreateRoomfail";
-				sendMsg(s,act,act2);
+				sendMsg(s, act, act2);
+
 			}
 			if (server.roomHash.get(act2) == null) {
-
 				server.roomHash.put(act2, new Hashtable<String, Socket>());
 				sendAllMsg(act, act2);
+
+			}
+		} else if (act.equals("ExitUser")) {
+			String nick = act2;
+			System.out.println("삭제 전");
+			server.userHash.remove(nick);
+			sendAllMsg("DelUser", nick);
+			System.out.println("삭제 완료");
+			
+			if (st.hasMoreTokens()) {
+				String roomName = st.nextToken();
+				server.roomHash.get(roomName).remove(nick);
+				sendRoomMsg("Chatting", roomName, "관리자", nick + "님이 퇴장하였습니다.");
+				
 			}
 		}
 	}
