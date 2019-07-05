@@ -3,9 +3,6 @@ package client;
 import java.io.DataInputStream;
 import java.net.Socket;
 import java.util.StringTokenizer;
-import javax.swing.JOptionPane;
-
-import client.login.LoginAction;
 
 public class ClientRead extends Thread {
 	private Socket s;
