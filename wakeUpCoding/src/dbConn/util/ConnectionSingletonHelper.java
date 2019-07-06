@@ -25,7 +25,7 @@ public class ConnectionSingletonHelper {
 			Class.forName("oracle.jdbc.OracleDriver");
 			conn = DriverManager.getConnection(
 
-					"jdbc:oracle:thin:@localhost:1521:XE", "kingsmile", "oracle");
+					"jdbc:oracle:thin:@10.10.10.166:1521:XE", "kingsmile", "oracle");
 
 			
 		} catch (Exception e) {e.printStackTrace();} finally {return conn;}
