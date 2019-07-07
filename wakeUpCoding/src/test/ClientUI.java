@@ -1,4 +1,4 @@
-package client;
+package test;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -32,7 +32,6 @@ public class ClientUI extends JFrame{
 	JList<String> userList, roomList; 
 	Vector<String> uList, rList; ///////////
 	JLabel chatUser;
-	
 	public static void main(String[] args) {
 		new ClientUI();
 	}

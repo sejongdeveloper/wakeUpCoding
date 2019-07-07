@@ -58,9 +58,7 @@ public class DBControll {// controll
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			close();
-		}
+		} 
 
 	} // insert() end
 	
@@ -77,6 +75,7 @@ public class DBControll {// controll
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				nick = rs.getString("nick");
+				System.out.println("´Ð³×ÀÓ:" + nick);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
