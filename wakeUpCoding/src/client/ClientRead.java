@@ -71,7 +71,7 @@ public class ClientRead extends Thread {
 		// UI제목 변경
 		} else if (act.equals("ChangeTitle")) { 
 			String nick = st.nextToken();
-			ca.setTitle("닉네임:" + nick + "     방이름: " + act2);
+			ca.setTitle("BitTalk  닉네임:" + nick + "     방이름: " + act2);
 			ca.chatUser.setText(act2 + " 접속자");
 		
 		// 동일 유저로 접속한 경우 종료

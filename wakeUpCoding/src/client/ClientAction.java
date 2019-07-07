@@ -28,7 +28,7 @@ public class ClientAction extends ClientUI implements ActionListener, KeyListene
 				System.exit(0);
 			}
 		});
-		setTitle("닉네임:" + c.nick + "     방이름: 대기실");
+		setTitle("BitTalk  닉네임:" + c.nick + "     방이름: 대기실");
 	}
 
 	@Override
