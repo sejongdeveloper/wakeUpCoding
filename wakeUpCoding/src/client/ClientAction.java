@@ -78,7 +78,7 @@ public class ClientAction extends ClientUI implements ActionListener, KeyListene
 			chatField.setText(""); // 입력필드 초기화
 		}
 	}
-
+	
 	public void keyReleased(KeyEvent e) {}
 	public void keyTyped(KeyEvent e) {}
 }
