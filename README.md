@@ -7,4 +7,4 @@
 
 개발툴 : Eclipse, Github, SQL Dveloper
 
-![coding](./coding.jpg.jpg)
+![coding](./coding.jpg)
