@@ -39,6 +39,7 @@ public class LoginUI extends JFrame {
 		
 		add(pTotal);
 		setBounds(150,80,300,200);
+		setTitle("BitTalk");
 		setVisible(true);
 	}
 }

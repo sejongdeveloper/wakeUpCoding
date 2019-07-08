@@ -58,14 +58,6 @@ public class ClientRead extends Thread {
 		} else if (act.equals("NewRoom")) { 
 			ca.rList.add(act2);
 			ca.roomList.setListData(ca.rList);
-			
-		// 기존 들어온 유저 UI리스트 추가
-		}else if (act.equals("OldRoom")) { 
-			ca.rList.add(act2);
-			while(st.hasMoreTokens()) {
-				ca.rList.add(st.nextToken());
-			}
-			ca.roomList.setListData(ca.rList);	
 		
 		// 방 만들지못했을때
 		}else if (act.equals("CreateRoomfail")) {
@@ -79,7 +71,8 @@ public class ClientRead extends Thread {
 		// UI제목 변경
 		} else if (act.equals("ChangeTitle")) { 
 			String nick = st.nextToken();
-			ca.setTitle("닉네임:" + nick + "     방이름: " + act2);
+			ca.setTitle("BitTalk  닉네임:" + nick + "     방이름: " + act2);
+			ca.chatUser.setText(act2 + " 접속자");
 		
 		// 동일 유저로 접속한 경우 종료
 		} else if (act.equals("Bye")) {

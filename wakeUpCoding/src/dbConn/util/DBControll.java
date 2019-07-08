@@ -15,6 +15,7 @@ public class DBControll {// controll
 	private String nick;
 	private JoinAction ja;
 	private LoginAction la;
+	int result;
 
 	Connection conn = null;
 	Statement stmt = null;
@@ -42,26 +43,23 @@ public class DBControll {// controll
 	}// close
 
 	//회원가입
-	public void insert() {
+	public int insert() {
 		id = ja.idField.getText().trim();
 		pwd = ja.pwdField.getText().trim();
 		nick = ja.nickField.getText().trim();
 		System.out.println(id + ", " + pwd + ", " + nick);
-
 		try {
 			pstmt = conn.prepareStatement("insert into UserDB values(?,?,?)");
 			pstmt.setString(1, id);
 			pstmt.setString(2, pwd);
 			pstmt.setString(3, nick);
-			pstmt.executeUpdate();
+			result = pstmt.executeUpdate();
 			System.out.println("ID생성");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			close();
-		}
-
+		} 
+		return result;			
 	} // insert() end
 	
 	//로그인
@@ -77,6 +75,7 @@ public class DBControll {// controll
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				nick = rs.getString("nick");
+				System.out.println("닉네임:" + nick);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

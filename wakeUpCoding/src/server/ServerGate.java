@@ -61,14 +61,15 @@ public class ServerGate extends Thread {
 				sendMsg(s, "Bye/suah"); return;
 			}
 			
-			// 나한테만 기존유저UI 추가하라고 뿌림
-			Set<String> nicks = server.userHash.keySet();
+			// 나한테만 대기실유저UI 추가하라고 뿌림
+			Set<String> nicks = server.noneHash.keySet();
 			for (String n : nicks) {
 				sendMsg(s, act, n);
 			}
-			// 모든유저에게 내 닉네임UI 추가하라고 뿌림
+			// 대기실유저에게 내 닉네임UI 추가하라고 뿌림
 			server.userHash.put(nick, s);
-			sendAllMsg(act, nick);
+			server.noneHash.put(nick, s);
+			sendAllMsg("none", nick);
 
 			// 나한테만 기존방UI 모두 추가하라고 뿌림
 			Set<String> roomN = server.roomHash.keySet();
@@ -92,7 +93,17 @@ public class ServerGate extends Thread {
 
 				// 기존방 모두에게 내 닉만 UI 제거하라고 뿌림
 				sendRoomMsg("DelUser", oldRoom, nick);
+				
+				// 기존방 모두에게 퇴장했다고 알려줌
+				sendRoomMsg("Chatting", oldRoom, "관리자", nick + "님이 퇴장하였습니다.");
 
+			} else {
+				server.noneHash.remove(nick);
+				for(String n : server.noneHash.keySet()) {
+					sendMsg(server.noneHash.get(n), "DelUser", nick);
+					sendMsg(server.noneHash.get(n), "Chatting", "관리자", nick + "님이 퇴장하였습니다.");
+				}
+				
 			}
 
 			// 나한테만 현재방 유저 모두를 UI 추가하라고 뿌림
@@ -121,8 +132,17 @@ public class ServerGate extends Thread {
 			// 채팅내용이 있다면 해당방에 보내기
 			if (st.hasMoreTokens()) {
 				String chat = st.nextToken(); // 채팅내용
-				// 해당방에 들어있는 모든 유저에게 채팅내용 뿌림
-				sendRoomMsg(act, roomName, nick, chat);
+				
+				// 대기실 채팅일 경우
+				if(roomName.equals("none")) {
+					Set<String> nicks = server.noneHash.keySet();
+					for(String n : nicks) {
+						sendMsg(server.noneHash.get(n), act, nick, chat);
+					}
+				} else {
+					// 해당방에 들어있는 모든 유저에게 채팅내용 뿌림
+					sendRoomMsg(act, roomName, nick, chat);					
+				}
 			}
 
 		// NewRoom/roomName
@@ -137,6 +157,7 @@ public class ServerGate extends Thread {
 			} else {
 				server.roomHash.put(roomName, new Hashtable<String, Socket>());
 				sendAllMsg(act, roomName);
+				
 
 			} // if end
 		
@@ -146,6 +167,7 @@ public class ServerGate extends Thread {
 			System.out.println("삭제 전");
 			server.userHash.remove(nick);
 			sendAllMsg("DelUser", nick);
+			if(server.noneHash.containsKey(nick)) server.noneHash.remove(nick);
 			System.out.println("삭제 완료");
 			
 			// 유저가 방에 들어가서 나간 경우
@@ -161,6 +183,10 @@ public class ServerGate extends Thread {
 	// 모든 유저에게 보내기
 	public void sendAllMsg(String... msg) {
 		Set<String> nicks = server.userHash.keySet(); // 접속한 모든 닉네임 얻기
+		if(msg[0].equals("none")) {
+			nicks = server.noneHash.keySet();
+			msg[0] = "NewUser";
+		}
 		String send = "";
 		for (String n : nicks) {
 			for (int i = 0; i < msg.length; i++)

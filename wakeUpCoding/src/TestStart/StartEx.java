@@ -7,7 +7,5 @@ public class StartEx {
 	public static void main(String[] args) {
 		new Server();
 		new Login();
-		new Login();
-		new Login();
 	}
 }
