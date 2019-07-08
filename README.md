@@ -8,3 +8,9 @@
 개발툴 : Eclipse, Github, SQL Dveloper
 
 ![coding](./wakeUpCoding/coding.jpg)
+
+※ 업데이트 공지사항
+
+2019-07-09 업데이트
+방삭제 기능추가
+스레드에서 스레드풀로 기능변경
