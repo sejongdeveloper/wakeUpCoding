@@ -171,8 +171,8 @@ public class ServerGate extends Thread {
 			System.out.println("삭제 완료");
 			
 			// 유저가 방에 들어가서 나간 경우
-			if (st.hasMoreTokens()) {
-				String roomName = st.nextToken();
+			String roomName = st.nextToken();
+			if (!roomName.equals("none")) {
 				server.roomHash.get(roomName).remove(nick);
 				sendRoomMsg("Chatting", roomName, "관리자", nick + "님이 퇴장하였습니다.");
 				
