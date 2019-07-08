@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.StringTokenizer;
 
 //서버와 클라이언트 입출력(Gate)담당 클래스
-public class ServerGate extends Thread {
+public class ServerGate implements Runnable {
 	DataInputStream dis;
 	DataOutputStream dos;
 	StringTokenizer st;
