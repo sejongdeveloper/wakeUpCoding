@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 public class ClientAction extends ClientUI implements ActionListener, KeyListener {
 	Client c;
-	String roomName = "";
+	String roomName = "none";
 	String oldName = "none";
 	
 	public ClientAction(Client c) {
@@ -28,7 +28,7 @@ public class ClientAction extends ClientUI implements ActionListener, KeyListene
 				System.exit(0);
 			}
 		});
-		setTitle("닉네임:" + c.nick + "     방이름: 대기실");
+		setTitle("BitTalk  닉네임:" + c.nick + "     방이름: 대기실");
 	}
 
 	@Override
@@ -39,11 +39,6 @@ public class ClientAction extends ClientUI implements ActionListener, KeyListene
 			if(roomList == null || rList.isEmpty()) {
 				JOptionPane.showMessageDialog(null, "채팅방이 없습니다.");
 				return;
-			}
-			
-			// 
-			if (!roomName.isEmpty()) {
-				c.sendMsg("Chatting", roomName, "관리자", c.nick + "님이 퇴장하였습니다.");
 			}
 			
 			// 방리스트UI에 선택한 방이름 저장
@@ -83,7 +78,7 @@ public class ClientAction extends ClientUI implements ActionListener, KeyListene
 			chatField.setText(""); // 입력필드 초기화
 		}
 	}
-
+	
 	public void keyReleased(KeyEvent e) {}
 	public void keyTyped(KeyEvent e) {}
 }

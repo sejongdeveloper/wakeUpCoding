@@ -45,6 +45,7 @@ public class JoinUI extends JFrame{
 
 		add(pTotal);
 		setBounds(150,80,300,250);
+		setTitle("BitTalk");
 		setVisible(true);
 		
 	}

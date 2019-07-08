@@ -1,22 +1,24 @@
 package client;
 
 import java.io.DataInputStream;
+import java.io.IOException;
 import java.net.Socket;
 import java.util.StringTokenizer;
 
 import javax.swing.JOptionPane;
 
 public class ClientRead extends Thread {
-	private Socket s;
 	private DataInputStream dis;
 	private StringTokenizer st;
+	private Socket s;
 	ClientAction ca;
 
+	// 생성자 메소드
 	public ClientRead(Socket s, ClientAction ca) {
 		this.s = s;
 		this.ca = ca;
 
-	}
+	} 
 
 	@Override
 	public void run() {
@@ -27,9 +29,10 @@ public class ClientRead extends Thread {
 				System.out.println(msg);
 				applyMsg(msg);
 			}
-		} catch (Exception e) {}
-
-	}
+		} catch (IOException e) { 
+			System.out.println("ClientRead/Err/" + e.getMessage());
+		}
+	} // run() end
 
 	public void applyMsg(String msg) {
 		st = new StringTokenizer(msg, "/");
@@ -53,32 +56,29 @@ public class ClientRead extends Thread {
 		
 		// 방생성
 		} else if (act.equals("NewRoom")) { 
-			System.out.println("ACT2:" + act2);
 			ca.rList.add(act2);
 			ca.roomList.setListData(ca.rList);
-
-		}else if (act.equals("OldRoom")) { // 기존 들어온 유저 UI리스트 추가
-			ca.rList.add(act2);
-			while(st.hasMoreTokens()) {
-				ca.rList.add(st.nextToken());
-			}ca.roomList.setListData(ca.rList);	
-
-		}else if (act.equals("CreateRoomfail")) {// 만들지못했을때
+		
+		// 방 만들지못했을때
+		}else if (act.equals("CreateRoomfail")) {
 			JOptionPane.showMessageDialog(null, "방만들기 실패", "알림", JOptionPane.ERROR_MESSAGE);
 
-		} else if (act.equals("DelUserList")) { // 새로 들어온 유저 UI리스트 추가
+		// 유저UI 모두 제거
+		} else if (act.equals("DelUserList")) { 
 			ca.uList.clear();
-			System.out.println("남은사람"+act2);
 			ca.userList.setListData(ca.uList);
 			
 		// UI제목 변경
 		} else if (act.equals("ChangeTitle")) { 
 			String nick = st.nextToken();
-			ca.setTitle("닉네임:" + nick + "     방이름: " + act2);
+			ca.setTitle("BitTalk  닉네임:" + nick + "     방이름: " + act2);
+			ca.chatUser.setText(act2 + " 접속자");
+		
+		// 동일 유저로 접속한 경우 종료
 		} else if (act.equals("Bye")) {
 			JOptionPane.showMessageDialog(null, "이미 접속중인 유저입니다");
 			ca.dispose();
 			System.exit(0);
 		}
-	}
-}
+	} // applyMsg(String msg) end
+} // ClientRead end
