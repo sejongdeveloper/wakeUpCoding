@@ -62,14 +62,14 @@ public class ServerGate extends Thread {
 			}
 			
 			// 나한테만 대기실유저UI 추가하라고 뿌림
-			Set<String> nicks = server.noneHash.keySet();
+			Set<String> nicks = server.roomHash.get("대기방").keySet();
 			for (String n : nicks) {
 				sendMsg(s, act, n);
 			}
 			// 대기실유저에게 내 닉네임UI 추가하라고 뿌림
 			server.userHash.put(nick, s);
-			server.noneHash.put(nick, s);
-			sendAllMsg("none", nick);
+			server.roomHash.get("대기방").put(nick, s);
+			sendRoomMsg("NewUser", "대기방", nick);
 
 			// 나한테만 기존방UI 모두 추가하라고 뿌림
 			Set<String> roomN = server.roomHash.keySet();
@@ -86,25 +86,14 @@ public class ServerGate extends Thread {
 			// 나의 클라만 유저UI 모두제거
 			sendMsg(s, "DelUserList", oldRoom);
 
-			// 기존방이 있는 상태에서 방참여를 한 경우
-			if (!oldRoom.equals("none")) {
-				// 기존방에 나를 제거
-				server.roomHash.get(oldRoom).remove(nick);
+			// 기존방에 나를 제거
+			server.roomHash.get(oldRoom).remove(nick);
 
-				// 기존방 모두에게 내 닉만 UI 제거하라고 뿌림
-				sendRoomMsg("DelUser", oldRoom, nick);
-				
-				// 기존방 모두에게 퇴장했다고 알려줌
-				sendRoomMsg("Chatting", oldRoom, "관리자", nick + "님이 퇴장하였습니다.");
-
-			} else {
-				server.noneHash.remove(nick);
-				for(String n : server.noneHash.keySet()) {
-					sendMsg(server.noneHash.get(n), "DelUser", nick);
-					sendMsg(server.noneHash.get(n), "Chatting", "관리자", nick + "님이 퇴장하였습니다.");
-				}
-				
-			}
+			// 기존방 모두에게 내 닉만 UI 제거하라고 뿌림
+			sendRoomMsg("DelUser", oldRoom, nick);
+			
+			// 기존방 모두에게 퇴장했다고 알려줌
+			sendRoomMsg("Chatting", oldRoom, "관리자", nick + "님이 퇴장하였습니다.");
 
 			// 나한테만 현재방 유저 모두를 UI 추가하라고 뿌림
 			Set<String> nicks = server.roomHash.get(roomName).keySet();
@@ -133,16 +122,8 @@ public class ServerGate extends Thread {
 			if (st.hasMoreTokens()) {
 				String chat = st.nextToken(); // 채팅내용
 				
-				// 대기실 채팅일 경우
-				if(roomName.equals("none")) {
-					Set<String> nicks = server.noneHash.keySet();
-					for(String n : nicks) {
-						sendMsg(server.noneHash.get(n), act, nick, chat);
-					}
-				} else {
-					// 해당방에 들어있는 모든 유저에게 채팅내용 뿌림
-					sendRoomMsg(act, roomName, nick, chat);					
-				}
+				// 해당방에 들어있는 모든 유저에게 채팅내용 뿌림
+				sendRoomMsg(act, roomName, nick, chat);
 			}
 
 		// NewRoom/roomName
@@ -162,31 +143,36 @@ public class ServerGate extends Thread {
 			} // if end
 		
 		// ExitUser/nick/[roomName]
+		} else if (act.equals("DelRoom")) {
+			String roomName = act2;
+			if(server.roomHash.get(roomName).isEmpty()) {
+				server.roomHash.remove(roomName);
+				Set<String> nicks = server.userHash.keySet();
+				for(String nick : nicks) {
+					sendMsg(server.userHash.get(nick), "DelRoom", roomName);
+				}
+				sendMsg(s, "Msg", roomName + "방 삭제했습니다.");
+			} else {
+				sendMsg(s, "Msg", "비어있는 방만 삭제가능합니다.");
+			}
 		} else if (act.equals("ExitUser")) { // 유저가 채팅을 종료할 경우
 			String nick = act2;
 			System.out.println("삭제 전");
 			server.userHash.remove(nick);
 			sendAllMsg("DelUser", nick);
-			if(server.noneHash.containsKey(nick)) server.noneHash.remove(nick);
 			System.out.println("삭제 완료");
 			
 			// 유저가 방에 들어가서 나간 경우
 			String roomName = st.nextToken();
-			if (!roomName.equals("none")) {
-				server.roomHash.get(roomName).remove(nick);
-				sendRoomMsg("Chatting", roomName, "관리자", nick + "님이 퇴장하였습니다.");
+			server.roomHash.get(roomName).remove(nick);
+			sendRoomMsg("Chatting", roomName, "관리자", nick + "님이 퇴장하였습니다.");
 				
-			} 
 		} // if end
 	} // applyMsg(String msg) end
 
 	// 모든 유저에게 보내기
 	public void sendAllMsg(String... msg) {
 		Set<String> nicks = server.userHash.keySet(); // 접속한 모든 닉네임 얻기
-		if(msg[0].equals("none")) {
-			nicks = server.noneHash.keySet();
-			msg[0] = "NewUser";
-		}
 		String send = "";
 		for (String n : nicks) {
 			for (int i = 0; i < msg.length; i++)

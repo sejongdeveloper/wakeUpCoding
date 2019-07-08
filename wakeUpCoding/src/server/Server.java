@@ -11,16 +11,14 @@ public class Server {
 	
 	//대기실 유저
 	Hashtable<String, Socket> userHash; // Hashtable<닉네임, Socket> userHash;
-	Hashtable<String, Socket> noneHash; // Hashtable<닉네임, Socket> userHash;
-	
 	// 방유저
 	Hashtable<String, Hashtable<String, Socket>> roomHash; // Hashtable<방이름, Hashtable<닉네임, Socket>> roomHash;
 	
 	public Server() { 
 		// 객체 생성 (new 연산자)
 		userHash = new Hashtable<String, Socket>();
-		noneHash = new Hashtable<String, Socket>();
 		roomHash = new Hashtable<String, Hashtable<String,Socket>>();
+		roomHash.put("대기방", new Hashtable<String, Socket>());
 		
 		// 서버가 항상 클라이언트를 받을 수 있도록 대기
 		Thread ready = new Thread(()->{ // 익명구현객체 구현

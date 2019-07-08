@@ -79,6 +79,11 @@ public class ClientRead extends Thread {
 			JOptionPane.showMessageDialog(null, "이미 접속중인 유저입니다");
 			ca.dispose();
 			System.exit(0);
+		} else if (act.equals("Msg")) {
+			JOptionPane.showMessageDialog(null, act2);
+		} else if (act.equals("DelRoom")) {
+			ca.rList.remove(act2);
+			ca.roomList.setListData(ca.rList);
 		}
 	} // applyMsg(String msg) end
 } // ClientRead end

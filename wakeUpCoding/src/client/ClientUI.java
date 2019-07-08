@@ -19,7 +19,7 @@ public class ClientUI extends JFrame{
 	JPanel panWest, panEast;
 	JPanel p1chat, p2chatList, p3btns, p4writeChat;
 	JScrollPane userScroll, roomScroll;
-	JButton btnJoin, btnNewRoom, btnEnter;
+	JButton btnJoin, btnNewRoom, btnEnter, btnDelRoom;
 	TextArea chatArea;
 	JTextField chatField;
 	JList<String> userList, roomList; 
@@ -52,9 +52,10 @@ public class ClientUI extends JFrame{
 		p2chatList.add(roomScroll, BorderLayout.CENTER);
 		panWest.add(p2chatList);
 		
-		p3btns = new JPanel(new GridLayout(2,0,10,10));
+		p3btns = new JPanel(new GridLayout(3,0,10,10));
 		p3btns.add(btnJoin = new JButton("채팅방 참여"));
-		p3btns.add(btnNewRoom = new JButton("새 채팅방"));
+		p3btns.add(btnNewRoom = new JButton("채팅방 생성"));
+		p3btns.add(btnDelRoom = new JButton("채팅방 삭제"));
 		btnJoin.setSize(5, 5); btnNewRoom.setSize(5, 5);
 		panWest.add(p3btns);
 		

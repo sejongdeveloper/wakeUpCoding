@@ -11,14 +11,16 @@ import javax.swing.JOptionPane;
 
 public class ClientAction extends ClientUI implements ActionListener, KeyListener {
 	Client c;
-	String roomName = "none";
-	String oldName = "none";
+	String roomName = "대기방";
+	String oldName = "대기방";
+	public ClientAction() {}
 	
 	public ClientAction(Client c) {
 		this.c = c;
 		btnEnter.addActionListener(this);
 		btnJoin.addActionListener(this);
 		btnNewRoom.addActionListener(this);
+		btnDelRoom.addActionListener(this);
 		chatField.addKeyListener(this);
 		
 		addWindowListener(new WindowAdapter() {
@@ -68,6 +70,10 @@ public class ClientAction extends ClientUI implements ActionListener, KeyListene
 			if(!roomName.isEmpty()) c.sendMsg("Chatting", roomName, c.nick ,chatField.getText().trim());
 			chatField.setText(""); // 입력필드 초기화
 
+		} else if (e.getSource() == btnDelRoom) { // 방삭제
+			// 방리스트UI에 선택한 방이름 저장
+			roomName = roomList.getSelectedValue();
+			c.sendMsg("DelRoom", roomName);
 		}
 
 	}
