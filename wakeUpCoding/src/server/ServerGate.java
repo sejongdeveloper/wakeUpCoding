@@ -167,6 +167,7 @@ public class ServerGate extends Thread {
 			System.out.println("삭제 전");
 			server.userHash.remove(nick);
 			sendAllMsg("DelUser", nick);
+			if(server.noneHash.containsKey(nick)) server.noneHash.remove(nick);
 			System.out.println("삭제 완료");
 			
 			// 유저가 방에 들어가서 나간 경우
