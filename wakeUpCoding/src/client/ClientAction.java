@@ -75,6 +75,10 @@ public class ClientAction extends ClientUI implements ActionListener, KeyListene
 		} else if (e.getSource() == btnDelRoom) { // 방삭제
 			// 방리스트UI에 선택한 방이름 저장
 			roomName = roomList.getSelectedValue();
+			if(roomName.equals("대기방")) {
+				JOptionPane.showMessageDialog(null, "대기방은 삭제할 수 없습니다.");
+				return;
+			}
 			c.sendMsg("DelRoom", roomName);
 		}
 
